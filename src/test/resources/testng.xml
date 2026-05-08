@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Online Bookstore API Test Suite">
+    <test name="Books API Tests">
+        <classes>
+            <class name="bookstore.tests.books.ListBooksApiTest"/>
+        </classes>
+    </test>
+</suite>
