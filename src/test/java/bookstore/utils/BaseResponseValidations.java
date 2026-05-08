@@ -1,0 +1,31 @@
+package bookstore.utils;
+
+import io.restassured.response.Response;
+
+import java.util.List;
+
+import static org.testng.Assert.*;
+
+public class BaseResponseValidations {
+
+    public static void validateHeadersContentTypeIsExpected(Response response, String contentType) {
+        assertTrue(response.getContentType().contains(contentType),
+                String.format("Expected content type to contain '%s' but got '%s'", contentType, response.getContentType()));
+
+    }
+
+    public static void validateListIsNotEmpty(Response response) {
+
+        List<Object> items = response.jsonPath().getList("$");
+
+        assertNotEquals(items, null, "Response list should not be null");
+        assertFalse(items.isEmpty(), "Response list should not be empty");
+    }
+
+    public static void validateStatusCodeIsExpected(Response response, int expectedStatusCode) {
+        int actualStatusCode = response.getStatusCode();
+
+        assertEquals(actualStatusCode, expectedStatusCode,
+                String.format("Expected status code %d but got %d", expectedStatusCode, actualStatusCode));
+    }
+}
