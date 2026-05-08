@@ -1,10 +1,10 @@
 package bookstore.utils;
 
 import io.restassured.response.Response;
-
 import java.util.List;
-
 import static org.testng.Assert.*;
+
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class BaseResponseValidations {
 
@@ -27,5 +27,9 @@ public class BaseResponseValidations {
 
         assertEquals(actualStatusCode, expectedStatusCode,
                 String.format("Expected status code %d but got %d", expectedStatusCode, actualStatusCode));
+    }
+    public static void validateBooksListSchema(Response response) {
+        response.then()
+                .body(matchesJsonSchemaInClasspath("schemas/books-list-schema.json"));
     }
 }
