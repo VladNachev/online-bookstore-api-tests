@@ -4,6 +4,7 @@
     <test name="Books API Tests">
         <classes>
             <class name="bookstore.tests.books.ListBooksApiTest"/>
+            <class name="bookstore.tests.books.PostBooksApiTest"/>
         </classes>
     </test>
 </suite>
