@@ -9,8 +9,11 @@ import io.restassured.response.Response;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import static bookstore.testdata.BookTestDataFactory.buildBookRequestDto;
-import static bookstore.utils.BaseResponseValidations.validateStatusCodeIsExpected;
+import static bookstore.utils.BaseResponseValidations.*;
 import static bookstore.utils.BooksResponseValidations.validateCreatedBookMatchesRequestDetails;
 
 @Feature("POST Books")
@@ -31,9 +34,62 @@ public class PostBooksApiTest extends BooksBaseTest {
 
         Response response = booksClient.addNewBook(requestDto);
 
+        // General response validations
+        validateStatusCodeIsExpected(response, 200);
+        validateHeadersContentTypeIsExpected(response, "application/json");
+        validateBookSchema(response);
+
+        // Validate book details in response match the request
+        BookResponseDto responseDto = response.as(BookResponseDto.class);
+        validateCreatedBookMatchesRequestDetails(requestDto, responseDto);
+    }
+
+    @Test(description = "Verify book creation with nullable text fields")
+    @Description("Verify that POST /Books accepts nullable title, description, and excerpt fields according to the API schema.")
+    public void addNewBookWithNullableTextFieldsShouldSucceed() {
+
+        requestDto.setTitle(null);
+        requestDto.setDescription(null);
+        requestDto.setExcerpt(null);
+
+        Response response = booksClient.addNewBook(requestDto);
+
+        validateStatusCodeIsExpected(response, 200);
+
+        // Validate book details in response match the request
+        BookResponseDto responseDto = response.as(BookResponseDto.class);
+        validateCreatedBookMatchesRequestDetails(requestDto, responseDto);
+    }
+
+    @Test(description = "Verify book creation with zero page count")
+    @Description("Verify that POST /Books accepts a book request with pageCount set to 0.")
+    public void addNewBookWithZeroPageCountShouldSucceed() {
+
+        requestDto.setPageCount(0);
+
+        Response response = booksClient.addNewBook(requestDto);
+
         validateStatusCodeIsExpected(response, 200);
 
         BookResponseDto responseDto = response.as(BookResponseDto.class);
         validateCreatedBookMatchesRequestDetails(requestDto, responseDto);
+    }
+
+    @Test(description = "Verify that POST /Books returns Bad Request for invalid publish date format")
+    @Description("Verify that POST /Books returns HTTP 400 Bad Request when the publishDate field is provided in an invalid format.")
+    public void addNewBookWithInvalidPublishDateFormatShouldReturnBadRequest() {
+
+        requestDto.setPublishDate(LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))); // Invalid format
+
+        Response response = booksClient.addNewBook(requestDto);
+
+        validateStatusCodeIsExpected(response, 400);
+    }
+
+    @Test(description = "Verify that POST /Books returns Bad Request when passing invalid data types")
+    @Description("Verify that POST /Books returns HTTP 400 Bad Request when the request body contains invalid data types")
+    public void addNewBookWithInvalidDataTypesShouldReturnBadRequest() {
+        // TODO
     }
 }

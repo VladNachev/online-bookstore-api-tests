@@ -12,10 +12,5 @@ public class BookStoreConfig {
     public static final String BOOKS = API_VERSION + "/Books";
     public static final String BOOK_BY_ID = API_VERSION + "/Books/{id}";
 
-    // Verbs
-    public static final String POST = "POST";
-    public static final String GET = "GET";
-    public static final String PUT = "PUT";
-    public static final String DELETE = "DELETE";
 
 }

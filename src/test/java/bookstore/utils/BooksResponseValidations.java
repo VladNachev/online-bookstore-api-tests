@@ -1,13 +1,9 @@
 package bookstore.utils;
 
 import bookstore.dto.BookRequestDto;
-import bookstore.dto.BookResponseDto;
-import io.restassured.response.Response;
+import bookstore.dto.BookResponseDto;;
 import org.testng.asserts.SoftAssert;
 
-import java.util.List;
-
-import static org.testng.Assert.*;
 
 public class BooksResponseValidations extends BaseResponseValidations {
 

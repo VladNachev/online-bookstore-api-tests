@@ -17,9 +17,12 @@ public class ListBooksApiTest extends BooksBaseTest {
     public void listBooksShouldReturnListOfBooks() {
             Response response = booksClient.getBooks();
 
+            // General response validations
             validateStatusCodeIsExpected(response, 200);
             validateHeadersContentTypeIsExpected(response, "application/json");
             validateBooksListSchema(response);
+
+            // Validate that the list of books is not empty
             validateListIsNotEmpty(response);
         }
 }

@@ -32,4 +32,8 @@ public class BaseResponseValidations {
         response.then()
                 .body(matchesJsonSchemaInClasspath("schemas/books-list-schema.json"));
     }
+    public static void validateBookSchema(Response response) {
+        response.then()
+                .body(matchesJsonSchemaInClasspath("schemas/book-schema.json"));
+    }
 }
