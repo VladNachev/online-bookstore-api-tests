@@ -25,19 +25,17 @@ jobs:
         run: chmod +x ./mvnw
 
       - name: Run tests
+        id: tests
+        continue-on-error: true
         run: ./mvnw clean test
+
+      - name: Show Allure results
+        if: always()
+        run: ls -la target/allure-results || true
 
       - name: Generate Allure report
         if: always()
         run: ./mvnw allure:report
-
-      - name: Upload Allure results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: allure-results
-          path: target/allure-results
-          if-no-files-found: warn
 
       - name: Upload Allure report
         if: always()
@@ -45,12 +43,8 @@ jobs:
         with:
           name: allure-report
           path: target/site/allure-maven-plugin
-          if-no-files-found: warn
+          if-no-files-found: error
 
-      - name: Upload Surefire reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: surefire-reports
-          path: target/surefire-reports
-          if-no-files-found: warn
+      - name: Fail if tests failed
+        if: steps.tests.outcome == 'failure'
+        run: exit 1
