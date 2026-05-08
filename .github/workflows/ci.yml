@@ -1,10 +1,10 @@
-name: Book Store API CI
+name: API Tests
 
 on:
   push:
     branches: [ master ]
   pull_request:
-    branches: [ master ]
+    branches: [ maaster ]
 
 jobs:
   test:
@@ -26,6 +26,13 @@ jobs:
 
       - name: Run tests
         run: ./mvnw clean test
+
+      - name: Upload Allure results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-results
+          path: target/allure-results
 
       - name: Generate Allure report
         if: always()
