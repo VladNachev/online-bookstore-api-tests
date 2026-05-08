@@ -86,10 +86,4 @@ public class PostBooksApiTest extends BooksBaseTest {
 
         validateStatusCodeIsExpected(response, 400);
     }
-
-    @Test(description = "Verify that POST /Books returns Bad Request when passing invalid data types")
-    @Description("Verify that POST /Books returns HTTP 400 Bad Request when the request body contains invalid data types")
-    public void addNewBookWithInvalidDataTypesShouldReturnBadRequest() {
-        // TODO
-    }
 }
