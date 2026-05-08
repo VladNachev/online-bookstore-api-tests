@@ -11,9 +11,7 @@
     <description>Automating the testing of the RESTful API for a bookstore using the provided demo API from FakeRestAPI</description>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-        <maven.compiler.release>21</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <testng.version>7.12.0</testng.version>
         <rest-assured.version>6.0.0</rest-assured.version>
