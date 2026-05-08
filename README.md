@@ -1,6 +1,6 @@
 [![CI](https://github.com/VladNachev/online-bookstore-api-tests/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/VladNachev/online-bookstore-api-tests/actions/workflows/ci.yml)
-[![Allure Report](https://img.shields.io/badge/Allure_Report-View_Report-ff4f64?logo=allure&logoColor=white)](https://vladnachev.github.io/online-bookstore-api-tests/)
 
+[![Allure Report](https://img.shields.io/badge/Allure_Report-View_Report-1f6feb?logo=allure&logoColor=white)](https://vladnachev.github.io/online-bookstore-api-tests/)
 
 # Online Bookstore API Test Automation Framework
 
