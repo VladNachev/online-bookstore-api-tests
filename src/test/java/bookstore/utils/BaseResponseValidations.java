@@ -22,6 +22,13 @@ public class BaseResponseValidations {
         assertFalse(items.isEmpty(), "Response list should not be empty");
     }
 
+    public static void validateListIsEmpty(Response response) {
+        List<Object> items = response.jsonPath().getList("$");
+
+        assertNotEquals(items, null, "Response list should not be null");
+        assertTrue(items.isEmpty(), "Response list should be empty");
+    }
+
     public static void validateStatusCodeIsExpected(Response response, int expectedStatusCode) {
         int actualStatusCode = response.getStatusCode();
 

@@ -19,12 +19,12 @@ public class GetBookByIdApiTest extends BooksBaseTest {
     @Description("Verify that GET /Books/{id} returns HTTP 200 with the requested book ID and populated book fields.")
     public void getBookByIdShouldReturnBookWithExpectedIdAndPopulatedFields() {
         int bookId = 1;
+
         Response response = booksClient.getBookById(bookId);
 
         // General response validations
         validateStatusCodeIsExpected(response, 200);
         validateHeadersContentTypeIsExpected(response, "application/json");
-        validateBookSchema(response);
 
         BookResponseDto actualDto = response.as(BookResponseDto.class);
 

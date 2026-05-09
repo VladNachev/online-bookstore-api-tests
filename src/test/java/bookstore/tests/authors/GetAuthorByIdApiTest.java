@@ -1,0 +1,48 @@
+package bookstore.tests.authors;
+
+import bookstore.dto.AuthorResponseDto;
+import bookstore.testdata.AuthorDataProviders;
+import io.qameta.allure.Description;
+import io.qameta.allure.Feature;
+import io.qameta.allure.testng.Tag;
+import io.restassured.response.Response;
+import org.testng.annotations.Test;
+
+import static bookstore.testdata.AuthorTestDataFactory.buildExpectedAuthorResponseDto;
+import static bookstore.utils.AuthorsResponseValidations.validateAuthorMatchesExpectedDetails;
+import static bookstore.utils.BaseResponseValidations.validateHeadersContentTypeIsExpected;
+import static bookstore.utils.BaseResponseValidations.validateStatusCodeIsExpected;
+
+@Feature("GET Author By ID")
+@Tag("Authors")
+public class GetAuthorByIdApiTest extends AuthorsBaseTest {
+
+    @Test(description = "Verify retrieval of an author by ID")
+    @Description("Verify that GET /Authors/{id} returns HTTP 200 with the corect data")
+    public void getAuthorByIdShouldReturnAuthorDetails() {
+        int authorId = 1;
+
+        Response response = authorsClient.getAuthorById(authorId);
+
+        // General response validations
+        validateStatusCodeIsExpected(response, 200);
+        validateHeadersContentTypeIsExpected(response, "application/json");
+
+        // Validate Author details in response match the expected details for the author with ID 1.
+        AuthorResponseDto expectedAuthorDto = buildExpectedAuthorResponseDto();
+        AuthorResponseDto actualAuthorDto = response.as(AuthorResponseDto.class);
+        validateAuthorMatchesExpectedDetails(expectedAuthorDto, actualAuthorDto);
+    }
+
+    @Test(
+            dataProvider = "invalidAuthorIds",
+            dataProviderClass = AuthorDataProviders.class,
+            description = "Verify retrieval of an author by invalid ID"
+    )
+    @Description("Verify that GET /Authors/{id} returns HTTP 404 when an invalid author ID is provided")
+    public void getAuthorByInvalidIdShouldReturnNotFound(int authorId, String scenarioDescription) {
+        Response response = authorsClient.getAuthorById(authorId);
+
+        validateStatusCodeIsExpected(response, 404);
+    }
+}
