@@ -7,12 +7,9 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import bookstore.testdata.BookDataProviders;
 
-import static bookstore.testdata.BookInvalidPayloads.invalidDataTypesPayload;
-import static bookstore.testdata.BookInvalidPayloads.invalidPublishDateFormatPayload;
 import static bookstore.testdata.BookTestDataFactory.buildBookRequestDto;
 import static bookstore.utils.BaseResponseValidations.*;
 import static bookstore.utils.BooksResponseValidations.validateCreatedBookMatchesRequestDetails;
