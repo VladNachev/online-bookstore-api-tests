@@ -101,4 +101,17 @@ public class BooksClient extends BaseClient {
                 .response();
     }
 
+    public Response deleteBookById(int id) {
+        return RestAssured.given()
+                .spec(getRequestSpecification())
+                .basePath(BOOK_BY_ID)
+                .pathParam("id", id)
+                .when()
+                .delete()
+                .then()
+                .log().all()
+                .extract()
+                .response();
+    }
+
 }

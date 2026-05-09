@@ -38,4 +38,13 @@ public class BookDataProviders {
                 {invalidPublishDateFormatPayload(), "invalid publish date format"}
         };
     }
+
+    @DataProvider(name = "invalidBookIds")
+    public static Object[][] invalidBookIds() {
+        return new Object[][]{
+                {9999, "non-existent book ID"},
+                {0, "book ID = 0"},
+                {-1, "negative book ID"}
+        };
+    }
 }

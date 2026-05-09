@@ -7,7 +7,7 @@
             <class name="bookstore.tests.books.GetBookByIdApiTest"/>
             <class name="bookstore.tests.books.PostBooksApiTest"/>
             <class name="bookstore.tests.books.PutBooksApiTest"/>
-
+            <class name="bookstore.tests.books.DeleteBooksApiTest"/>
         </classes>
     </test>
 </suite>
