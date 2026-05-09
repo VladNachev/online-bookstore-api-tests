@@ -68,11 +68,8 @@ public class PutBooksApiTest extends BooksBaseTest {
         validateStatusCodeIsExpected(response, 400);
     }
 
-    /*
-    Note: Additional test scenarios such as updating a non-existent book by providing invalid IDs are skipped.
-    Reason for that: Ideally the API should return 404 Not Found for non-existent resources,
-    but the current implementation returns 200. I decided to skip those negative test scenarios for now
-    in order avoid false failures in the test suite and unnecessary noise,
-    since currently this is so called: work-as-designed.
-     */
+    /* Note: Additional test scenarios such as updating a non-existent book by providing invalid IDs are skipped.
+       Reason for that: Ideally the API should return 404 Not Found for non-existent resources,
+       but the current implementation returns 200. I decided to skip those negative test scenarios for now
+       in order avoid false failures in the test suite. */
 }

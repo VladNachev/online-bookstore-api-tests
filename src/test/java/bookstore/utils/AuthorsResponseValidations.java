@@ -2,14 +2,10 @@ package bookstore.utils;
 
 import bookstore.dto.AuthorRequestDto;
 import bookstore.dto.AuthorResponseDto;
-import bookstore.dto.BookResponseDto;
 import io.restassured.response.Response;
 import org.testng.asserts.SoftAssert;
 
 import java.util.List;
-
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
 
 public class AuthorsResponseValidations extends BaseResponseValidations {
 
@@ -31,14 +27,14 @@ public class AuthorsResponseValidations extends BaseResponseValidations {
         softAssert.assertAll();
     }
 
-    public static AuthorResponseDto getAuthorByIdFromAuthorsList(Response response, int expectedBookId) {
-        List<AuthorResponseDto> books = response.jsonPath().getList("$", AuthorResponseDto.class);
+    public static AuthorResponseDto getAuthorByIdFromAuthorsList(Response response, int expectedAuthorId) {
+        List<AuthorResponseDto> authors = response.jsonPath().getList("$", AuthorResponseDto.class);
 
-        return books.stream()
-                .filter(book -> book.getId() == expectedBookId)
+        return authors.stream()
+                .filter(author -> author.getId() == expectedAuthorId)
                 .findFirst()
                 .orElseThrow(() -> new AssertionError(
-                        String.format("Author with ID %d was not found", expectedBookId)));
+                        String.format("Author with ID %d was not found", expectedAuthorId)));
     }
 
     public static void validateAuthorMatchesExpectedDetails(AuthorResponseDto expectedDto, AuthorResponseDto actualDto) {

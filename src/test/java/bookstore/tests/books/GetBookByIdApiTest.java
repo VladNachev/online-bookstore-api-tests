@@ -28,7 +28,7 @@ public class GetBookByIdApiTest extends BooksBaseTest {
 
         BookResponseDto actualDto = response.as(BookResponseDto.class);
 
-        // FakeAPI returnS dynamic content on each run, so validate stable contract fields instead of exact text values.
+        // FakeAPI returnS dynamic content on each run, so validate stable fields instead of exact text values.
         validateValueIsExpected(actualDto.getId(), bookId, "Book ID");
         validateValueIsNotNull(actualDto.getTitle(), "Book title");
         validateValueIsNotNull(actualDto.getDescription(), "Book description");
@@ -42,7 +42,7 @@ public class GetBookByIdApiTest extends BooksBaseTest {
             description = "Verify retrieval of a book by invalid ID"
     )
     @Description("Verify that GET /Books/{id} returns HTTP 404 when an invalid book ID is provided")
-    public void getBookByInvalidIdShouldReturnNotFound(int bookId, String scenarioDescription) {
+    public void getBookByInvalidIdShouldReturnNotFound(int bookId, String scenario) {
         Response response = booksClient.getBookById(bookId);
 
         validateStatusCodeIsExpected(response, 404);
