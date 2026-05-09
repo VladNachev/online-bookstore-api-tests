@@ -5,6 +5,7 @@
         <classes>
             <class name="bookstore.tests.books.GetBooksApiTest"/>
             <class name="bookstore.tests.books.PostBooksApiTest"/>
+            <class name="bookstore.tests.books.GetBookByIdApiTest"/>
         </classes>
     </test>
 </suite>
