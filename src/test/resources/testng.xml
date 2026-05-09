@@ -3,7 +3,7 @@
 <suite name="Online Bookstore API Test Suite">
     <test name="Books API Tests">
         <classes>
-            <class name="bookstore.tests.books.ListBooksApiTest"/>
+            <class name="bookstore.tests.books.GetBooksApiTest"/>
             <class name="bookstore.tests.books.PostBooksApiTest"/>
         </classes>
     </test>

@@ -10,11 +10,11 @@ import static bookstore.utils.BooksResponseValidations.*;
 
 @Feature("GET Books")
 @Tag("Books")
-public class ListBooksApiTest extends BooksBaseTest {
+public class GetBooksApiTest extends BooksBaseTest {
 
     @Test(description = "Verify retrieval of all books")
     @Description("Verify that GET /Books returns HTTP 200 with a non-empty list of books, and that the response refers to the expected JSON schema.")
-    public void listBooksShouldReturnListOfBooks() {
+    public void GetBooksShouldReturnListOfBooks() {
             Response response = booksClient.getBooks();
 
             // General response validations

@@ -56,7 +56,6 @@ public class PostBooksApiTest extends BooksBaseTest {
 
         validateStatusCodeIsExpected(response, 200);
 
-        // Validate book details in response match the request
         BookResponseDto responseDto = response.as(BookResponseDto.class);
         validateCreatedBookMatchesRequestDetails(requestDto, responseDto);
     }
@@ -73,6 +72,28 @@ public class PostBooksApiTest extends BooksBaseTest {
 
         BookResponseDto responseDto = response.as(BookResponseDto.class);
         validateCreatedBookMatchesRequestDetails(requestDto, responseDto);
+    }
+
+    @Test(description = "Verify that POST /Books returns Bad Request for passing invalid data types")
+    @Description("Verify that POST /Books returns HTTP 400 Bad Request when invalid data types are provided")
+    public void addNewBookWithInvalidDataTypeShouldReturnBadRequest() {
+
+        /* Raw JSON is used here instead of DTO because DTOs enforce valid data types .
+           For this edge TC the malformed payload is constructed manually. */
+
+        String invalidRequestBody = """
+        {
+          "title": 123,
+          "description": 123,
+          "pageCount": 100,
+          "excerpt": 123,
+          "publishDate": "2026-05-09T12:45:30Z"
+        }
+        """;
+
+        Response response = booksClient.addNewBook(invalidRequestBody);
+
+        validateStatusCodeIsExpected(response, 400);
     }
 
     @Test(description = "Verify that POST /Books returns Bad Request for invalid publish date format")
