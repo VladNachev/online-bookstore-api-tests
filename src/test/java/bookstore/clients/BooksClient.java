@@ -21,6 +21,19 @@ public class BooksClient extends BaseClient {
                 .response();
     }
 
+    public Response getBookById(int id) {
+        return RestAssured.given()
+                .spec(getRequestSpecification())
+                .basePath(BOOK_BY_ID)
+                .pathParam("id", id)
+                .when()
+                .get()
+                .then()
+                .log().all()
+                .extract()
+                .response();
+    }
+
     public Response addNewBook(BookRequestDto requestDto) {
         return RestAssured.given()
                 .spec(getRequestSpecification())
@@ -54,17 +67,38 @@ public class BooksClient extends BaseClient {
                 .response();
     }
 
-
-    public Response getBookById(int id) {
+    public Response updateBook(BookRequestDto requestDto, int id) {
         return RestAssured.given()
                 .spec(getRequestSpecification())
                 .basePath(BOOK_BY_ID)
                 .pathParam("id", id)
+                .contentType(ContentType.JSON)
+                .body(requestDto)
                 .when()
-                .get()
+                .put()
                 .then()
                 .log().all()
                 .extract()
                 .response();
     }
+
+    /* Method overloading is used here because some test scenarios require
+   sending the request body as a DTO (positive test cases),
+   while others require sending raw JSON payloads
+   for negative validations such as invalid data types. */
+    public Response updateBook(String requestDto, int id) {
+        return RestAssured.given()
+                .spec(getRequestSpecification())
+                .basePath(BOOK_BY_ID)
+                .pathParam("id", id)
+                .contentType(ContentType.JSON)
+                .body(requestDto)
+                .when()
+                .put()
+                .then()
+                .log().all()
+                .extract()
+                .response();
+    }
+
 }

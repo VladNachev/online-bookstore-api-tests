@@ -4,8 +4,10 @@
     <test name="Books API Tests">
         <classes>
             <class name="bookstore.tests.books.GetBooksApiTest"/>
-            <class name="bookstore.tests.books.PostBooksApiTest"/>
             <class name="bookstore.tests.books.GetBookByIdApiTest"/>
+            <class name="bookstore.tests.books.PostBooksApiTest"/>
+            <class name="bookstore.tests.books.PutBooksApiTest"/>
+
         </classes>
     </test>
 </suite>
