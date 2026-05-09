@@ -4,10 +4,7 @@ import bookstore.dto.BookRequestDto;
 import bookstore.dto.BookResponseDto;
 import io.restassured.response.Response;
 import org.testng.asserts.SoftAssert;
-
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.testng.Assert.*;
 

@@ -8,6 +8,7 @@
             <class name="bookstore.tests.books.PostBooksApiTest"/>
             <class name="bookstore.tests.books.PutBooksApiTest"/>
             <class name="bookstore.tests.books.DeleteBooksApiTest"/>
+            <class name="bookstore.tests.authors.GetAuthorsApiTest"/>
         </classes>
     </test>
 </suite>

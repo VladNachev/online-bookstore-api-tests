@@ -28,6 +28,18 @@ public class BaseResponseValidations {
         assertEquals(actualStatusCode, expectedStatusCode,
                 String.format("Expected status code %d but got %d", expectedStatusCode, actualStatusCode));
     }
+
+    public static void validateValueIsNotNull(Object actualValue, String fieldName) {
+        assertNotNull(actualValue,
+                String.format("%s should not be null", fieldName));
+    }
+
+    public static void validateValueIsExpected(Object actualValue, Object expectedValue, String fieldName) {
+        assertEquals(actualValue,
+                expectedValue,
+                String.format("%s does not match", fieldName));
+    }
+
     public static void validateBooksListSchema(Response response) {
         response.then()
                 .body(matchesJsonSchemaInClasspath("schemas/books-list-schema.json"));

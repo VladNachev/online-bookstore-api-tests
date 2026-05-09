@@ -24,7 +24,7 @@ public class DeleteBooksApiTest extends BooksBaseTest{
     /*
     Note: Additional test scenarios such as deleting a non-existent book by providing invalid IDs are skipped.
     Reason for that: Ideally the API should return 404 Not Found for non-existent resources,
-    but the current implementation returns 200. I decided to skip those negative test scenarios for now
+    but the current implementation returns 200. I decided to skip those negative test scenarios
     in order avoid false failures in the test suite and unnecessary noise,
     since currently this is so called: work-as-designed.
      */
