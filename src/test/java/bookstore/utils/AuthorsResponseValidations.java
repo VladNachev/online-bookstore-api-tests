@@ -13,11 +13,22 @@ import static org.testng.Assert.assertTrue;
 
 public class AuthorsResponseValidations extends BaseResponseValidations {
 
-    public static void validateAuthorWithIdExists(Response response, int expectedBookId) {
-        List<Integer> bookIds = response.jsonPath().getList("id", Integer.class);
+    public static void validateCreatedAuthorMatchesRequestDetails(AuthorRequestDto requestDto, AuthorResponseDto responseDto) {
+        SoftAssert softAssert = new SoftAssert();
 
-        assertTrue(bookIds.contains(expectedBookId),
-                String.format("Author with ID %d should exist in the response", expectedBookId));
+        softAssert.assertEquals(responseDto.getIdBook(),
+                requestDto.getIdBook(),
+                "Book ID does not match");
+
+        softAssert.assertEquals(responseDto.getFirstName(),
+                requestDto.getFirstName(),
+                "First name does not match");
+
+        softAssert.assertEquals(responseDto.getLastName(),
+                requestDto.getLastName(),
+                "Last name does not match");
+
+        softAssert.assertAll();
     }
 
     public static AuthorResponseDto getAuthorByIdFromAuthorsList(Response response, int expectedBookId) {

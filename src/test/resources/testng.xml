@@ -10,6 +10,8 @@
             <class name="bookstore.tests.books.DeleteBooksApiTest"/>
             <class name="bookstore.tests.authors.GetAuthorsApiTest"/>
             <class name="bookstore.tests.authors.GetAuthorByIdApiTest"/>
+            <class name="bookstore.tests.authors.GetAuthorByBookIdApiSpec"/>
+            <class name="bookstore.tests.authors.PostAuthorApiTest"/>
         </classes>
     </test>
 </suite>

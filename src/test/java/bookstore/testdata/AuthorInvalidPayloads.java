@@ -12,10 +12,4 @@ public class AuthorInvalidPayloads {
                 """;
     }
 
-    public static String missingRequiredFieldsPayload() {
-        return """
-                {
-                }
-                """;
-    }
 }

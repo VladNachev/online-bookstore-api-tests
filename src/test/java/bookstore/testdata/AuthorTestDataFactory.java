@@ -19,7 +19,7 @@ public class AuthorTestDataFactory {
 
     public static AuthorResponseDto buildExpectedAuthorResponseDto() {
 
-        /* Hardcoded expected response for author with ID 1 based on known test data in the system.
+        /* Hardcoded expected response for author with ID 1 based on known test data in the fakeAPI.
            Since this is a fake API and data is not actually persisted, we assume that author with ID 1
            has consistently these specific details for testing purposes and they will remain unchanged. */
 

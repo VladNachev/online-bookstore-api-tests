@@ -3,8 +3,6 @@ package bookstore.testdata;
 import bookstore.dto.AuthorRequestDto;
 import org.testng.annotations.DataProvider;
 
-import static bookstore.testdata.AuthorInvalidPayloads.invalidDataTypesPayload;
-import static bookstore.testdata.AuthorInvalidPayloads.missingRequiredFieldsPayload;
 import static bookstore.testdata.AuthorTestDataFactory.buildAuthorRequestDto;
 
 public class AuthorDataProviders {
@@ -24,14 +22,6 @@ public class AuthorDataProviders {
                 {nullFirstName, "null first name"},
                 {nullLastName, "null last name"},
                 {zeroBookId, "zero book ID"}
-        };
-    }
-
-    @DataProvider(name = "invalidAuthorPayloads")
-    public static Object[][] invalidAuthorPayloads() {
-        return new Object[][]{
-                {invalidDataTypesPayload(), "invalid data types"},
-                {missingRequiredFieldsPayload(), "missing required fields"}
         };
     }
 
