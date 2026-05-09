@@ -6,12 +6,11 @@ import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import io.qameta.allure.testng.Tag;
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
+import static bookstore.testdata.BookInvalidPayloads.invalidDataTypesPayload;
+import static bookstore.testdata.BookInvalidPayloads.invalidPublishDateFormatPayload;
 import static bookstore.testdata.BookTestDataFactory.buildBookRequestDto;
 import static bookstore.utils.BaseResponseValidations.*;
 import static bookstore.utils.BooksResponseValidations.validateCreatedBookMatchesRequestDetails;
@@ -20,17 +19,40 @@ import static bookstore.utils.BooksResponseValidations.validateCreatedBookMatche
 @Tag("Books")
 public class PostBooksApiTest extends BooksBaseTest {
 
-    private BookRequestDto requestDto;
+    @DataProvider(name = "validEdgeCaseBookPayloads")
+    public Object[][] validBookPayloads() {
+        BookRequestDto nullTitle = buildBookRequestDto();
+        nullTitle.setTitle(null);
 
-    @BeforeMethod
-    public void setupRequestDto() {
-        // Build book request DTO with valid unique data for each test
-        requestDto = buildBookRequestDto();
+        BookRequestDto nullDescription = buildBookRequestDto();
+        nullDescription.setDescription(null);
+
+        BookRequestDto nullExcerpt = buildBookRequestDto();
+        nullExcerpt.setExcerpt(null);
+
+        BookRequestDto zeroPageCount = buildBookRequestDto();
+        zeroPageCount.setPageCount(0);
+
+        return new Object[][]{
+                {nullTitle, "null title"},
+                {nullDescription, "null description"},
+                {nullExcerpt, "null excerpt"},
+                {zeroPageCount, "zero page count"}
+        };
+    }
+
+    @DataProvider(name = "invalidBookPayloads")
+    public Object[][] invalidBookPayloads() {
+        return new Object[][]{
+                {invalidDataTypesPayload(), "invalid data types"},
+                {invalidPublishDateFormatPayload(), "invalid publish date format"}
+        };
     }
 
     @Test(description = "Verify successful book creation")
     @Description("Verify that POST /Books successfully creates a new book and returns HTTP 200 with the created book's details in the response body.")
     public void addNewBookShouldSucceedAndReturnCreatedBookDetails() {
+        BookRequestDto requestDto = buildBookRequestDto();
 
         Response response = booksClient.addNewBook(requestDto);
 
@@ -44,66 +66,23 @@ public class PostBooksApiTest extends BooksBaseTest {
         validateCreatedBookMatchesRequestDetails(requestDto, responseDto);
     }
 
-    @Test(description = "Verify book creation with nullable text fields")
-    @Description("Verify that POST /Books accepts nullable title, description, and excerpt fields according to the API schema.")
-    public void addNewBookWithNullableTextFieldsShouldSucceed() {
-
-        requestDto.setTitle(null);
-        requestDto.setDescription(null);
-        requestDto.setExcerpt(null);
-
+    @Test(dataProvider = "validEdgeCaseBookPayloads", description = "Verify book creation with valid edge case payloads")
+    @Description("Verify that POST /Books accepts valid edge case payloads and returns the created book details.")
+    public void addNewBookWithValidEdgeCasePayloadShouldSucceed(BookRequestDto requestDto, String scenario) {
         Response response = booksClient.addNewBook(requestDto);
 
         validateStatusCodeIsExpected(response, 200);
+        validateHeadersContentTypeIsExpected(response, "application/json");
+        validateBookSchema(response);
 
         BookResponseDto responseDto = response.as(BookResponseDto.class);
         validateCreatedBookMatchesRequestDetails(requestDto, responseDto);
     }
 
-    @Test(description = "Verify book creation with zero page count")
-    @Description("Verify that POST /Books accepts a book request with pageCount set to 0.")
-    public void addNewBookWithZeroPageCountShouldSucceed() {
-
-        requestDto.setPageCount(0);
-
-        Response response = booksClient.addNewBook(requestDto);
-
-        validateStatusCodeIsExpected(response, 200);
-
-        BookResponseDto responseDto = response.as(BookResponseDto.class);
-        validateCreatedBookMatchesRequestDetails(requestDto, responseDto);
-    }
-
-    @Test(description = "Verify that POST /Books returns Bad Request for passing invalid data types")
-    @Description("Verify that POST /Books returns HTTP 400 Bad Request when invalid data types are provided")
-    public void addNewBookWithInvalidDataTypeShouldReturnBadRequest() {
-
-        /* Raw JSON is used here instead of DTO because DTOs enforce valid data types .
-           For this edge TC the malformed payload is constructed manually. */
-
-        String invalidRequestBody = """
-        {
-          "title": 123,
-          "description": 123,
-          "pageCount": 100,
-          "excerpt": 123,
-          "publishDate": "2026-05-09T12:45:30Z"
-        }
-        """;
-
-        Response response = booksClient.addNewBook(invalidRequestBody);
-
-        validateStatusCodeIsExpected(response, 400);
-    }
-
-    @Test(description = "Verify that POST /Books returns Bad Request for invalid publish date format")
-    @Description("Verify that POST /Books returns HTTP 400 Bad Request when the publishDate field is provided in an invalid format.")
-    public void addNewBookWithInvalidPublishDateFormatShouldReturnBadRequest() {
-
-        requestDto.setPublishDate(LocalDateTime.now()
-                .format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))); // Invalid format
-
-        Response response = booksClient.addNewBook(requestDto);
+    @Test(dataProvider = "invalidBookPayloads", description = "Verify that POST /Books returns Bad Request for invalid payloads")
+    @Description("Verify that POST /Books returns HTTP 400 Bad Request when invalid payloads are provided.")
+    public void addNewBookWithInvalidPayloadShouldReturnBadRequest(String requestBody, String scenario) {
+        Response response = booksClient.addNewBook(requestBody);
 
         validateStatusCodeIsExpected(response, 400);
     }

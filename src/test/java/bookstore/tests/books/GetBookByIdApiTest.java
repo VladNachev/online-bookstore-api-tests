@@ -28,7 +28,6 @@ public class GetBookByIdApiTest extends BooksBaseTest {
     @Test(description = "Verify retrieval of a book by ID")
     @Description("Verify that GET /Books/{id} returns HTTP 200 with the correct book details when a valid book ID is provided")
     public void getBookByIdShouldReturnCorrectBookDetails() {
-
         Response response = booksClient.getBookById(1); // bookId = 1
 
         // General response validations
@@ -45,7 +44,6 @@ public class GetBookByIdApiTest extends BooksBaseTest {
     @Test(dataProvider = "invalidBookIds", description = "Verify retrieval of a book by invalid ID")
     @Description("Verify that GET /Books/{id} returns HTTP 404 when an invalid book ID is provided")
     public void getBookByInvalidIdShouldReturnNotFound(int bookId, String scenarioDescription) {
-
         Response response = booksClient.getBookById(bookId);
 
         validateStatusCodeIsExpected(response, 404);

@@ -2,7 +2,14 @@ package bookstore.utils;
 
 import bookstore.dto.BookRequestDto;
 import bookstore.dto.BookResponseDto;
+import io.restassured.response.Response;
 import org.testng.asserts.SoftAssert;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.testng.Assert.*;
 
 
 public class BooksResponseValidations extends BaseResponseValidations {
@@ -60,6 +67,31 @@ public class BooksResponseValidations extends BaseResponseValidations {
                 "Publish date should not be null");
 
         softAssert.assertAll();
+    }
+
+    public static void validateBooksCountIsExpected(Response response, int expectedCount) {
+        List<BookResponseDto> books = response.jsonPath().getList("$", BookResponseDto.class);
+
+        assertEquals(books.size(),
+                expectedCount,
+                String.format("Expected books count to be %d but got %d", expectedCount, books.size()));
+    }
+
+    public static void validateBookWithIdExists(Response response, int expectedBookId) {
+        List<Integer> bookIds = response.jsonPath().getList("id", Integer.class);
+
+        assertTrue(bookIds.contains(expectedBookId),
+                String.format("Book with ID %d should exist in the response", expectedBookId));
+    }
+
+    public static BookResponseDto getBookByIdFromBooksList(Response response, int expectedBookId) {
+        List<BookResponseDto> books = response.jsonPath().getList("$", BookResponseDto.class);
+
+        return books.stream()
+                .filter(book -> book.getId() == expectedBookId)
+                .findFirst()
+                .orElseThrow(() -> new AssertionError(
+                        String.format("Book with ID %d was not found", expectedBookId)));
     }
 
 }
