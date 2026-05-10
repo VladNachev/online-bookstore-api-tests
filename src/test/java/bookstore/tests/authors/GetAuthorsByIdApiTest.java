@@ -19,12 +19,12 @@ import static bookstore.utils.BaseResponseValidations.validateStatusCodeIsExpect
 public class GetAuthorsByIdApiTest extends AuthorsBaseTest {
 
     @Test(description = "Verify retrieval of an author by ID")
-    @Description("Verify that GET /Authors/{id} returns HTTP 200 with the correct data")
+    @Description("Verify that GET /Authors/{id} returns HTTP 200-OK with the correct data")
     public void getAuthorByIdShouldReturnAuthorDetails() {
         Response response = authorsClient.getAuthorById(1); // authorId = 1
 
-        validateStatusCodeIsExpected(response, 200);
-        validateHeadersContentTypeIsExpected(response, "application/json");
+        validateStatusCodeIsExpected(response, STATUS_CODE_OK);
+        validateHeadersContentTypeIsExpected(response, CONTENT_TYPE_JSON);
         validateAuthorSchema(response);
 
         // Validate Author details in response match the expected details for the author with ID 1.
@@ -38,10 +38,10 @@ public class GetAuthorsByIdApiTest extends AuthorsBaseTest {
             dataProviderClass = AuthorDataProviders.class,
             description = "Verify retrieval of an author by invalid ID"
     )
-    @Description("Verify that GET /Authors/{id} returns HTTP 404 when an invalid author ID is provided (9999, 0, -1)")
+    @Description("Verify that GET /Authors/{id} returns 404 NOT FOUND when an invalid author ID is provided (9999, 0, -1)")
     public void getAuthorByInvalidIdShouldReturnNotFound(int authorId, String scenario) {
         Response response = authorsClient.getAuthorById(authorId);
 
-        validateStatusCodeIsExpected(response, 404);
+        validateStatusCodeIsExpected(response, STATUS_CODE_NOT_FOUND);
     }
 }

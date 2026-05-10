@@ -17,7 +17,7 @@ public class DeleteBooksApiTest extends BooksBaseTest{
     public void deleteBookShouldSucceed() {
         Response response = booksClient.deleteBookById(1); // bookId = 1
 
-        validateStatusCodeIsExpected(response, 200);
+        validateStatusCodeIsExpected(response, STATUS_CODE_OK);
     }
 
     /* Additional test scenarios such as deleting a non-existent book by providing invalid IDs are skipped.

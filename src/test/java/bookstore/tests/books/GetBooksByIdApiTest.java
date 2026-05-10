@@ -17,14 +17,14 @@ import static bookstore.utils.BooksResponseValidations.validateBookSchema;
 public class GetBooksByIdApiTest extends BooksBaseTest {
 
     @Test(description = "Verify retrieval of a book by ID")
-    @Description("Verify that GET /Books/{id} returns HTTP 200 with the requested book ID and validate stable fields")
+    @Description("Verify that GET /Books/{id} returns HTTP 200-OK with the requested book ID and validate stable fields")
     public void getBookByIdShouldReturnBookWithExpectedIdAndPopulatedFields() {
         int bookId = 1;
 
         Response response = booksClient.getBookById(bookId);
 
-        validateStatusCodeIsExpected(response, 200);
-        validateHeadersContentTypeIsExpected(response, "application/json");
+        validateStatusCodeIsExpected(response, STATUS_CODE_OK);
+        validateHeadersContentTypeIsExpected(response, CONTENT_TYPE_JSON);
         validateBookSchema(response);
 
         BookResponseDto actualDto = response.as(BookResponseDto.class);
@@ -42,10 +42,10 @@ public class GetBooksByIdApiTest extends BooksBaseTest {
             dataProviderClass = BookDataProviders.class,
             description = "Verify retrieval of a book by invalid ID"
     )
-    @Description("Verify that GET /Books/{id} returns HTTP 404 when an invalid book ID (9999, 0, -1) is provided")
+    @Description("Verify that GET /Books/{id} returns HTTP 404 NOT FOUND for invalid book ID (9999, 0, -1) is provided")
     public void getBookByInvalidIdShouldReturnNotFound(int bookId, String scenario) {
         Response response = booksClient.getBookById(bookId);
 
-        validateStatusCodeIsExpected(response, 404);
+        validateStatusCodeIsExpected(response, STATUS_CODE_NOT_FOUND);
     }
 }

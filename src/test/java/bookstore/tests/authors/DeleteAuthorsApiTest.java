@@ -17,7 +17,7 @@ public class DeleteAuthorsApiTest extends AuthorsBaseTest {
     public void deleteAuthorShouldSucceed() {
         Response response = authorsClient.deleteAuthorById(1); // authorId = 1
 
-        validateStatusCodeIsExpected(response, 200);
+        validateStatusCodeIsExpected(response, STATUS_CODE_OK);
     }
 
     /* Additional test scenarios such as deleting a non-existent author by providing invalid IDs are skipped.

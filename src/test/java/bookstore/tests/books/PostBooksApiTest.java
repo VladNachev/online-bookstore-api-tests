@@ -19,14 +19,14 @@ import static bookstore.utils.BooksResponseValidations.validateCreatedBookMatche
 public class PostBooksApiTest extends BooksBaseTest {
 
     @Test(description = "Verify successful book creation")
-    @Description("Verify that POST /Books successfully creates a new book and returns HTTP 200 with the created book's details in the response body.")
+    @Description("Verify that POST /Books successfully creates a new book and returns HTTP 200 with the created book's details.")
     public void addNewBookShouldSucceedAndReturnCreatedBookDetails() {
         BookRequestDto requestDto = buildBookRequestDto();
 
         Response response = booksClient.addNewBook(requestDto);
 
-        validateStatusCodeIsExpected(response, 200);
-        validateHeadersContentTypeIsExpected(response, "application/json");
+        validateStatusCodeIsExpected(response, STATUS_CODE_OK);
+        validateHeadersContentTypeIsExpected(response, CONTENT_TYPE_JSON);
         validateBookSchema(response);
 
         BookResponseDto responseDto = response.as(BookResponseDto.class);
@@ -43,8 +43,8 @@ public class PostBooksApiTest extends BooksBaseTest {
     public void addNewBookWithValidEdgeCasePayloadShouldSucceed(BookRequestDto requestDto, String scenario) {
         Response response = booksClient.addNewBook(requestDto);
 
-        validateStatusCodeIsExpected(response, 200);
-        validateHeadersContentTypeIsExpected(response, "application/json");
+        validateStatusCodeIsExpected(response, STATUS_CODE_OK);
+        validateHeadersContentTypeIsExpected(response, CONTENT_TYPE_JSON);
         validateBookSchema(response);
 
         BookResponseDto responseDto = response.as(BookResponseDto.class);
@@ -60,6 +60,6 @@ public class PostBooksApiTest extends BooksBaseTest {
     public void addNewBookWithInvalidPayloadShouldReturnBadRequest(String requestBody, String scenario) {
         Response response = booksClient.addNewBook(requestBody);
 
-        validateStatusCodeIsExpected(response, 400);
+        validateStatusCodeIsExpected(response, STATUS_CODE_BAD_REQUEST);
     }
 }

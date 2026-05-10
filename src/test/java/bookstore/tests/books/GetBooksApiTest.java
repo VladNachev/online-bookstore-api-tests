@@ -13,12 +13,12 @@ import static bookstore.utils.BooksResponseValidations.*;
 public class GetBooksApiTest extends BooksBaseTest {
 
     @Test(description = "Verify retrieval of all books")
-    @Description("Verify that GET /Books returns HTTP 200 with a non-empty list of books, and that the response refers to the expected JSON schema.")
+    @Description("Verify that GET /Books returns HTTP 200-OK with a non-empty list, and the response refers to the expected JSON schema.")
     public void getBooksShouldReturnListOfBooks() {
         Response response = booksClient.getBooks();
 
-        validateStatusCodeIsExpected(response, 200);
-        validateHeadersContentTypeIsExpected(response, "application/json");
+        validateStatusCodeIsExpected(response, STATUS_CODE_OK);
+        validateHeadersContentTypeIsExpected(response, CONTENT_TYPE_JSON);
         validateBooksListSchema(response);
 
         /* In a real-world scenario, the expected count would typically be retrieved from the database

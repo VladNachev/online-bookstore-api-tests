@@ -20,13 +20,13 @@ import static bookstore.utils.BaseResponseValidations.validateStatusCodeIsExpect
 public class PostAuthorsApiTest extends AuthorsBaseTest {
 
     @Test(description = "Verify successful author creation")
-    @Description("Verify that POST /Authors successfully creates a new author and returns HTTP 200")
+    @Description("Verify that POST /Authors successfully creates a new author and returns HTTP 200-OK")
     public void addNewAuthorShouldSucceedAndReturnCreatedAuthorDetails() {
         AuthorRequestDto requestDto = buildAuthorRequestDto();
         Response response = authorsClient.addNewAuthor(requestDto);
 
-        validateStatusCodeIsExpected(response, 200);
-        validateHeadersContentTypeIsExpected(response, "application/json");
+        validateStatusCodeIsExpected(response, STATUS_CODE_OK);
+        validateHeadersContentTypeIsExpected(response, CONTENT_TYPE_JSON);
         validateAuthorSchema(response);
 
         AuthorResponseDto responseDto = response.as(AuthorResponseDto.class);
@@ -43,8 +43,8 @@ public class PostAuthorsApiTest extends AuthorsBaseTest {
     public void addNewAuthorWithValidEdgeCasePayloadShouldSucceed(AuthorRequestDto requestDto, String scenario) {
         Response response = authorsClient.addNewAuthor(requestDto);
 
-        validateStatusCodeIsExpected(response, 200);
-        validateHeadersContentTypeIsExpected(response, "application/json");
+        validateStatusCodeIsExpected(response, STATUS_CODE_OK);
+        validateHeadersContentTypeIsExpected(response, CONTENT_TYPE_JSON);
         validateAuthorSchema(response);
 
         AuthorResponseDto responseDto = response.as(AuthorResponseDto.class);
@@ -60,7 +60,7 @@ public class PostAuthorsApiTest extends AuthorsBaseTest {
     public void addNewAuthorWithInvalidPayloadShouldReturnBadRequest(String requestBody, String scenario) {
         Response response = authorsClient.addNewAuthor(requestBody);
 
-        validateStatusCodeIsExpected(response, 400);
+        validateStatusCodeIsExpected(response, STATUS_CODE_BAD_REQUEST);
     }
 
 }

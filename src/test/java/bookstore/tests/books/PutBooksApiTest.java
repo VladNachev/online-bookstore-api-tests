@@ -21,14 +21,14 @@ public class PutBooksApiTest extends BooksBaseTest {
     private static final int BOOK_ID = 1;
 
     @Test(description = "Verify successful book update")
-    @Description("Verify that PUT /Books/{id} successfully updates an existing book's details and returns HTTP 200")
+    @Description("Verify that PUT /Books/{id} successfully updates an existing book's details and returns HTTP 200-OK")
     public void updateBookShouldSucceedAndReturnUpdatedBookDetails() {
         BookRequestDto requestDto = buildBookRequestDto();
 
         Response response = booksClient.updateBook(requestDto, BOOK_ID);
 
-        validateStatusCodeIsExpected(response, 200);
-        validateHeadersContentTypeIsExpected(response, "application/json");
+        validateStatusCodeIsExpected(response, STATUS_CODE_OK);
+        validateHeadersContentTypeIsExpected(response, CONTENT_TYPE_JSON);
         validateBookSchema(response);
 
         BookResponseDto responseDto = response.as(BookResponseDto.class);
@@ -45,8 +45,8 @@ public class PutBooksApiTest extends BooksBaseTest {
     public void updateBookWithValidEdgeCasePayloadShouldSucceed(BookRequestDto requestDto, String scenario) {
         Response response = booksClient.updateBook(requestDto, BOOK_ID);
 
-        validateStatusCodeIsExpected(response, 200);
-        validateHeadersContentTypeIsExpected(response, "application/json");
+        validateStatusCodeIsExpected(response, STATUS_CODE_OK);
+        validateHeadersContentTypeIsExpected(response, CONTENT_TYPE_JSON);
         validateBookSchema(response);
 
         BookResponseDto responseDto = response.as(BookResponseDto.class);
@@ -62,7 +62,7 @@ public class PutBooksApiTest extends BooksBaseTest {
     public void updateBookWithInvalidPayloadShouldReturnBadRequest(String requestBody, String scenario) {
         Response response = booksClient.updateBook(requestBody, BOOK_ID);
 
-        validateStatusCodeIsExpected(response, 400);
+        validateStatusCodeIsExpected(response, STATUS_CODE_BAD_REQUEST);
     }
 
     /* Note: Additional test scenarios such as updating a non-existent book by providing invalid IDs are skipped.

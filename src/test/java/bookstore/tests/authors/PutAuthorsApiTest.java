@@ -22,14 +22,14 @@ public class PutAuthorsApiTest extends AuthorsBaseTest {
     private static final int AUTHOR_ID = 1;
 
     @Test(description = "Verify successful author update")
-    @Description("Verify that PUT /Authors/{id} successfully updates an existing author's details and returns HTTP 200")
+    @Description("Verify that PUT /Authors/{id} successfully updates an existing author's details and returns HTTP 200-OK")
     public void updateAuthorShouldSucceedAndReturnUpdatedAuthorDetails() {
         AuthorRequestDto requestDto = buildAuthorRequestDto();
 
         Response response = authorsClient.updateAuthor(requestDto, AUTHOR_ID);
 
-        validateStatusCodeIsExpected(response, 200);
-        validateHeadersContentTypeIsExpected(response, "application/json");
+        validateStatusCodeIsExpected(response, STATUS_CODE_OK);
+        validateHeadersContentTypeIsExpected(response, CONTENT_TYPE_JSON);
         validateAuthorSchema(response);
 
         AuthorResponseDto responseDto = response.as(AuthorResponseDto.class);
@@ -46,8 +46,8 @@ public class PutAuthorsApiTest extends AuthorsBaseTest {
     public void updateAuthorWithValidEdgeCasePayloadShouldSucceed(AuthorRequestDto requestDto, String scenario) {
         Response response = authorsClient.updateAuthor(requestDto, AUTHOR_ID);
 
-        validateStatusCodeIsExpected(response, 200);
-        validateHeadersContentTypeIsExpected(response, "application/json");
+        validateStatusCodeIsExpected(response, STATUS_CODE_OK);
+        validateHeadersContentTypeIsExpected(response, CONTENT_TYPE_JSON);
         validateAuthorSchema(response);
 
         AuthorResponseDto responseDto = response.as(AuthorResponseDto.class);
@@ -64,7 +64,7 @@ public class PutAuthorsApiTest extends AuthorsBaseTest {
     public void updateAuthorWithInvalidPayloadShouldReturnBadRequest(String requestBody, String scenario) {
         Response response = authorsClient.updateAuthor(requestBody, AUTHOR_ID);
 
-        validateStatusCodeIsExpected(response, 400);
+        validateStatusCodeIsExpected(response, STATUS_CODE_BAD_REQUEST);
     }
 
     /* Note: Additional test scenarios such as updating a non-existent book by providing invalid IDs are skipped.

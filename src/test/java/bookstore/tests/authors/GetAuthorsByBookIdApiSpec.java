@@ -22,8 +22,8 @@ public class GetAuthorsByBookIdApiSpec extends AuthorsBaseTest {
     public void getAuthorsByBookIdShouldReturnListOfAuthors() {
         Response response = authorsClient.getAuthorsByBookId(1); // bookId = 1
 
-        validateStatusCodeIsExpected(response, 200);
-        validateHeadersContentTypeIsExpected(response, "application/json");
+        validateStatusCodeIsExpected(response, STATUS_CODE_OK);
+        validateHeadersContentTypeIsExpected(response, CONTENT_TYPE_JSON);
         validateListIsNotEmpty(response);
 
         /* fakeRestAPI return dynamics list content, but author with ID 1
@@ -42,8 +42,8 @@ public class GetAuthorsByBookIdApiSpec extends AuthorsBaseTest {
     public void getAuthorsByInvalidBookIdShouldReturnEmptyList(int bookId, String scenario) {
         Response response = authorsClient.getAuthorsByBookId(bookId);
 
-        validateStatusCodeIsExpected(response, 200);
-        validateHeadersContentTypeIsExpected(response, "application/json");
+        validateStatusCodeIsExpected(response, STATUS_CODE_OK);
+        validateHeadersContentTypeIsExpected(response, CONTENT_TYPE_JSON);
         validateListIsEmpty(response);
     }
 
