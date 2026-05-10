@@ -12,4 +12,12 @@ public class AuthorInvalidPayloads {
                 """;
     }
 
+    public static String malformedJsonPayload() {
+        return """
+                {
+                  "idBook": 1,
+                  "firstName": "Malformed JSON author",
+                  "lastName": "Missing closing brace"
+                """;
+    }
 }

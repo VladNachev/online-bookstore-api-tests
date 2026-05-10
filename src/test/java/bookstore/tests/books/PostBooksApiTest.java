@@ -38,7 +38,8 @@ public class PostBooksApiTest extends BooksBaseTest {
             dataProviderClass = BookDataProviders.class,
             description = "Verify book creation with valid edge case payloads"
     )
-    @Description("Verify that POST /Books accepts valid edge case payloads with nullTitle, nullDescription, nullExcerpt, zeroPageCount")
+    @Description("Verify that POST /Books accepts valid edge case payloads with null/blank attributes, " +
+            "zeroPageCount and special characters in book attributes")
     public void addNewBookWithValidEdgeCasePayloadShouldSucceed(BookRequestDto requestDto, String scenario) {
         Response response = booksClient.addNewBook(requestDto);
 

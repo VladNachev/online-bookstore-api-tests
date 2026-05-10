@@ -11,7 +11,6 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
 import static bookstore.testdata.AuthorTestDataFactory.buildAuthorRequestDto;
-import static bookstore.testdata.AuthorInvalidPayloads.invalidDataTypesPayload;
 import static bookstore.utils.AuthorsResponseValidations.validateAuthorSchema;
 import static bookstore.utils.AuthorsResponseValidations.validateCreatedAuthorMatchesRequestDetails;
 import static bookstore.utils.BaseResponseValidations.validateHeadersContentTypeIsExpected;
@@ -42,7 +41,8 @@ public class PutAuthorsApiTest extends AuthorsBaseTest {
             dataProviderClass = AuthorDataProviders.class,
             description = "Verify author update with valid edge case payloads"
     )
-    @Description("Verify that PUT /Authors/{id} accepts valid edge case payloads with nullFirstName, nullLastName, zeroBookId.")
+    @Description("Verify that PUT /Authors/{id} accepts valid edge case payloads with null/blank names, " +
+            "special characters in names, and zeroBookId.")
     public void updateAuthorWithValidEdgeCasePayloadShouldSucceed(AuthorRequestDto requestDto, String scenario) {
         Response response = authorsClient.updateAuthor(requestDto, AUTHOR_ID);
 
@@ -55,10 +55,14 @@ public class PutAuthorsApiTest extends AuthorsBaseTest {
 
     }
 
-    @Test(description = "Verify that PUT /Authors/{id} returns Bad Request for invalid data types")
-    @Description("Verify that PUT /Authors/{id} returns HTTP 400 Bad Request when invalid data types are provided.")
-    public void updateAuthorWithInvalidPayloadShouldReturnBadRequest() {
-        Response response = authorsClient.updateAuthor(invalidDataTypesPayload(), AUTHOR_ID);
+    @Test(
+            dataProvider = "invalidAuthorPayloads",
+            dataProviderClass = AuthorDataProviders.class,
+            description = "Verify that PUT /Authors/{id} returns Bad Request for invalid payloads"
+    )
+    @Description("Verify that PUT /Authors/{id} returns HTTP 400 Bad Request when invalid raw payloads are provided.")
+    public void updateAuthorWithInvalidPayloadShouldReturnBadRequest(String requestBody, String scenario) {
+        Response response = authorsClient.updateAuthor(requestBody, AUTHOR_ID);
 
         validateStatusCodeIsExpected(response, 400);
     }

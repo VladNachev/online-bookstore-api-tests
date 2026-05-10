@@ -5,9 +5,11 @@ import org.testng.annotations.DataProvider;
 
 import static bookstore.testdata.BookInvalidPayloads.invalidDataTypesPayload;
 import static bookstore.testdata.BookInvalidPayloads.invalidPublishDateFormatPayload;
+import static bookstore.testdata.BookInvalidPayloads.malformedJsonPayload;
 import static bookstore.testdata.BookTestDataFactory.buildBookRequestDto;
 
 public class BookDataProviders {
+    private static final String SPECIAL_CHARACTERS_BOOK_ATTRIBUTES = "!@#$%^&*()_+";
 
     @DataProvider(name = "validEdgeCaseBookPayloads")
     public static Object[][] validEdgeCaseBookPayloads() {
@@ -23,11 +25,29 @@ public class BookDataProviders {
         BookRequestDto zeroPageCount = buildBookRequestDto();
         zeroPageCount.setPageCount(0);
 
+        BookRequestDto blankTitle = buildBookRequestDto();
+        blankTitle.setTitle("");
+
+        BookRequestDto blankDescription = buildBookRequestDto();
+        blankDescription.setDescription("");
+
+        BookRequestDto blankExcerpt = buildBookRequestDto();
+        blankExcerpt.setExcerpt("");
+
+        BookRequestDto specialCharactersInBookAttributes = buildBookRequestDto();
+        specialCharactersInBookAttributes.setTitle(SPECIAL_CHARACTERS_BOOK_ATTRIBUTES);
+        specialCharactersInBookAttributes.setDescription(SPECIAL_CHARACTERS_BOOK_ATTRIBUTES);
+        specialCharactersInBookAttributes.setExcerpt(SPECIAL_CHARACTERS_BOOK_ATTRIBUTES);
+
         return new Object[][]{
                 {nullTitle, "null title"},
                 {nullDescription, "null description"},
                 {nullExcerpt, "null excerpt"},
-                {zeroPageCount, "zero page count"}
+                {zeroPageCount, "zero page count"},
+                {blankTitle, "blank title"},
+                {blankDescription, "blank description"},
+                {blankExcerpt, "blank excerpt"},
+                {specialCharactersInBookAttributes, "special characters in book attributes"}
         };
     }
 
@@ -35,7 +55,8 @@ public class BookDataProviders {
     public static Object[][] invalidBookPayloads() {
         return new Object[][]{
                 {invalidDataTypesPayload(), "invalid data types"},
-                {invalidPublishDateFormatPayload(), "invalid publish date format"}
+                {invalidPublishDateFormatPayload(), "invalid publish date format"},
+                {malformedJsonPayload(), "malformed JSON"}
         };
     }
 

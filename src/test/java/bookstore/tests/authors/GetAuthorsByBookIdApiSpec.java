@@ -1,6 +1,7 @@
 package bookstore.tests.authors;
 
 import bookstore.dto.AuthorResponseDto;
+import bookstore.testdata.AuthorDataProviders;
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import io.qameta.allure.testng.Tag;
@@ -32,13 +33,18 @@ public class GetAuthorsByBookIdApiSpec extends AuthorsBaseTest {
         validateAuthorMatchesExpectedDetails(expectedAuthorDto, actualAuthorDto);
     }
 
-    @Test(description = "Verify retrieval of authors by non-existent book ID")
-    @Description("Verify that GET /Authors/authors/books/{idBook} returns HTTP 200 with an empty list when the book ID does not exist.")
-    public void getAuthorsByNonExistentBookIdShouldReturnEmptyList() {
-        Response response = authorsClient.getAuthorsByBookId(9999); // boookId = 9999
+    @Test(
+            dataProvider = "invalidBookIdsForAuthors",
+            dataProviderClass = AuthorDataProviders.class,
+            description = "Verify retrieval of authors by invalid book ID"
+    )
+    @Description("Verify that GET /Authors/authors/books/{idBook} returns HTTP 200 with an empty list when an invalid book ID is provided.")
+    public void getAuthorsByInvalidBookIdShouldReturnEmptyList(int bookId, String scenario) {
+        Response response = authorsClient.getAuthorsByBookId(bookId);
 
         validateStatusCodeIsExpected(response, 200);
         validateHeadersContentTypeIsExpected(response, "application/json");
         validateListIsEmpty(response);
     }
+
 }

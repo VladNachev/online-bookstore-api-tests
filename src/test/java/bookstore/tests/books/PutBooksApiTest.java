@@ -40,7 +40,8 @@ public class PutBooksApiTest extends BooksBaseTest {
             dataProviderClass = BookDataProviders.class,
             description = "Verify book update with valid edge case payloads"
     )
-    @Description("Verify that PUT /Books accepts valid edge case payloads with nullTitle, nullDescription, nullExcerpt, zeroPageCount.")
+    @Description("Verify that PUT /Books accepts valid edge case payloads with null/blank attributes, " +
+            "zeroPageCount and special characters in book attributes")
     public void updateBookWithValidEdgeCasePayloadShouldSucceed(BookRequestDto requestDto, String scenario) {
         Response response = booksClient.updateBook(requestDto, BOOK_ID);
 
