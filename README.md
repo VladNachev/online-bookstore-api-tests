@@ -93,7 +93,7 @@ The generated report is located at:
 target/site/allure-maven-plugin
 ```
 
-## CI and Allure Reports
+## CI and Allure Reports on GitHub Pages
 
 This project uses GitHub Actions to run the API test suite automatically on every push and pull request to the `master` branch.
 
@@ -106,13 +106,18 @@ The CI workflow performs the following steps:
 - Uploads the Allure report as a downloadable GitHub Actions artifact
 - Publishes the latest Allure report to GitHub Pages
 
-## GitHub Pages Report
+The latest Allure report is automatically published to GitHub Pages after each successful push workflow run on the `master` branch.
 
-The latest published Allure report can be viewed here:
+[View Latest Allure Report](https://vladnachev.github.io/online-bookstore-api-tests/)
 
-[Allure Report](https://vladnachev.github.io/online-bookstore-api-tests/)
+The report includes:
 
-This report is updated after every successful push workflow run on the `master` branch.
+- test execution summary
+- passed/failed test status
+- test grouping by feature and suite
+- TestNG data provider parameters
+- request and response attachments from RestAssured
+- assertion failure details when a test fails
 
 ## Downloading the Allure Report Artifact
 
