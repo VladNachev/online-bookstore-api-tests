@@ -23,7 +23,7 @@ public class GetBooksApiTest extends BooksBaseTest {
 
         /* In a real-world scenario, the expected count would typically be retrieved from the database
            or another trusted data source and use that value for validation instead of being hardcoded.
-           For the purposes of this FakeAPI, the expected count is statically validated against 200. */
+           For the purposes of this fakeRestAPI, the expected count is statically validated against 200. */
 
         validateListIsNotEmpty(response);
         validateBooksCountIsExpected(response, 200);

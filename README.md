@@ -40,16 +40,16 @@ x
 
 ```text
 src/test/java/bookstore
-├── clients      # API client classes built on top of RestAssured
-├── config       # Base URL and endpoint constants
-├── dto          # Request and response DTOs
-├── testdata     # Test data factories, invalid payloads, and DataProviders
-├── tests        # TestNG test classes grouped by resource
-└── utils        # Reusable response validation helpers
+|-- clients      # API client classes built on top of RestAssured
+|-- config       # Base URL and endpoint constants
+|-- dto          # Request and response DTOs
+|-- testdata     # Test data factories, invalid payloads, and DataProviders
+|-- tests        # TestNG test classes grouped by resource
+`-- utils        # Reusable response validation helpers
 
 src/test/resources
-├── schemas      # JSON schemas used for response validation
-└── testng.xml   # TestNG suite configuration
+|-- schemas      # JSON schemas used for response validation
+`-- testng.xml   # TestNG suite configuration
 ```
 
 ## Prerequisites
@@ -62,7 +62,7 @@ Before running the tests locally, make sure you have:
 ## Setup, configure and run the framework
 ### Clone repository
 ```bash
-git clone https://github.com/VladNachev/selenium-pytest-project.git
+git clone https://github.com/VladNachev/online-bookstore-api-tests
 ```
 You can import the project into your preferred IDE (like Intellij for examples) as a Maven project and run the tests directly from the TestNG test classes, or run the tests from the command line using Maven or Maven Wrapper.
 
@@ -76,16 +76,19 @@ From the project root, run (if you already imported the project into your IDE, y
 
 ### Generate Allure Report Locally
 After running the tests, generate and open the Allure report:
+
 ```bash
 mvn allure:serve
 ```
 Or even better, use the Maven Wrapper:
+
 ```bash
 ./mvnw allure:serve
 ```
 The Allure Dashboard will automatically open in your default web browser, allowing you to explore the test results, including passed/failed tests, test steps, etc. 
 
 The generated report is located at:
+
 ```bast
 target/site/allure-maven-plugin
 ```
@@ -124,6 +127,7 @@ To download it:
 5. Download the `allure-report` artifact.
 6. Extract the downloaded `.zip` file.
 7. Open the report through a local web server, for example:
+8. 
 ```bash
 cd allure-report
 python -m http.server 8080
@@ -157,6 +161,7 @@ The framework uses:
 
 ### Run a Specific Test Suite
 The Maven Surefire plugin is configured to use:
+
 ``` bash
 src/test/resources/testng.xml
 ```

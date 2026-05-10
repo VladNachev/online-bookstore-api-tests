@@ -28,11 +28,9 @@ public class PutAuthorApiTest extends AuthorsBaseTest {
 
         Response response = authorsClient.updateAuthor(requestDto, AUTHOR_ID);
 
-        // General response validations
         validateStatusCodeIsExpected(response, 200);
         validateHeadersContentTypeIsExpected(response, "application/json");
 
-        // Validate Author details in response match the request
         AuthorResponseDto responseDto = response.as(AuthorResponseDto.class);
         validateCreatedAuthorMatchesRequestDetails(requestDto, responseDto);
     }
@@ -42,7 +40,7 @@ public class PutAuthorApiTest extends AuthorsBaseTest {
             dataProviderClass = AuthorDataProviders.class,
             description = "Verify author update with valid edge case payloads"
     )
-    @Description("Verify that PUT /Authors/{id} accepts valid edge case payloads and returns the updated author details.")
+    @Description("Verify that PUT /Authors/{id} accepts valid edge case payloads with nullFirstName, nullLastName, zeroBookId.")
     public void updateAuthorWithValidEdgeCasePayloadShouldSucceed(AuthorRequestDto requestDto, String scenario) {
         Response response = authorsClient.updateAuthor(requestDto, AUTHOR_ID);
 

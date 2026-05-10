@@ -26,11 +26,8 @@ public class GetAuthorsApiTest extends AuthorsBaseTest {
     @Test(description = "Verify retrieval of all authors")
     @Description("Verify that GET /Authors returns HTTP 200 with a non-empty list of authors.")
     public void getAuthorsShouldReturnListOfAuthors() {
-        // General response validations
         validateStatusCodeIsExpected(response, 200);
         validateHeadersContentTypeIsExpected(response, "application/json");
-
-        // Validate the authors list is not empty.
         validateListIsNotEmpty(response);
     }
 
@@ -38,7 +35,6 @@ public class GetAuthorsApiTest extends AuthorsBaseTest {
     @Description("Verify that GET /Authors returns a list containing an author with the expected ID and populated stable fields.")
     public void getAuthorsShouldContainAuthorWithExpectedId() {
         AuthorResponseDto expectedAuthorDto = buildExpectedAuthorResponseDto();
-
         AuthorResponseDto actualAuthorDto = getAuthorByIdFromAuthorsList(response, 1);
 
         validateAuthorMatchesExpectedDetails(expectedAuthorDto, actualAuthorDto);

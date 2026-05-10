@@ -1,6 +1,5 @@
 package bookstore.tests.books;
 
-
 import io.qameta.allure.Description;
 import io.qameta.allure.Feature;
 import io.qameta.allure.testng.Tag;

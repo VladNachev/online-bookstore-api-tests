@@ -23,14 +23,11 @@ public class PostAuthorApiTest extends AuthorsBaseTest {
     @Description("Verify that POST /Authors successfully creates a new author and returns HTTP 200")
     public void addNewAuthorShouldSucceedAndReturnCreatedAuthorDetails() {
         AuthorRequestDto requestDto = buildAuthorRequestDto();
-
         Response response = authorsClient.addNewAuthor(requestDto);
 
-        // General response validations
         validateStatusCodeIsExpected(response, 200);
         validateHeadersContentTypeIsExpected(response, "application/json");
 
-        // Validate Author details in response match the request
         AuthorResponseDto responseDto = response.as(AuthorResponseDto.class);
         validateCreatedAuthorMatchesRequestDetails(requestDto, responseDto);
     }
@@ -40,7 +37,7 @@ public class PostAuthorApiTest extends AuthorsBaseTest {
             dataProviderClass = AuthorDataProviders.class,
             description = "Verify author creation with valid edge case payloads"
     )
-    @Description("Verify that POST /Authors accepts valid edge case payloads and returns the created author details.")
+    @Description("Verify that POST /Authors accepts valid edge case payloads with nullFirstName, nullLastName, zeroBookId.")
     public void addNewAuthorWithValidEdgeCasePayloadShouldSucceed(AuthorRequestDto requestDto, String scenario) {
         Response response = authorsClient.addNewAuthor(requestDto);
 

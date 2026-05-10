@@ -24,12 +24,10 @@ public class PostBooksApiTest extends BooksBaseTest {
 
         Response response = booksClient.addNewBook(requestDto);
 
-        // General response validations
         validateStatusCodeIsExpected(response, 200);
         validateHeadersContentTypeIsExpected(response, "application/json");
         validateBookSchema(response);
 
-        // Validate book details in response match the request
         BookResponseDto responseDto = response.as(BookResponseDto.class);
         validateCreatedBookMatchesRequestDetails(requestDto, responseDto);
     }
@@ -39,7 +37,7 @@ public class PostBooksApiTest extends BooksBaseTest {
             dataProviderClass = BookDataProviders.class,
             description = "Verify book creation with valid edge case payloads"
     )
-    @Description("Verify that POST /Books accepts valid edge case payloads and returns the created book details.")
+    @Description("Verify that POST /Books accepts valid edge case payloads with nullTitle, nullDescription, nullExcerpt, zeroPageCount")
     public void addNewBookWithValidEdgeCasePayloadShouldSucceed(BookRequestDto requestDto, String scenario) {
         Response response = booksClient.addNewBook(requestDto);
 
@@ -56,7 +54,7 @@ public class PostBooksApiTest extends BooksBaseTest {
             dataProviderClass = BookDataProviders.class,
             description = "Verify that POST /Books returns Bad Request for invalid payloads"
     )
-    @Description("Verify that POST /Books returns HTTP 400 Bad Request when invalid payloads are provided.")
+    @Description("Verify that POST /Books returns 400 Bad Request when invalid data types or invalid publish date format are provided.")
     public void addNewBookWithInvalidPayloadShouldReturnBadRequest(String requestBody, String scenario) {
         Response response = booksClient.addNewBook(requestBody);
 

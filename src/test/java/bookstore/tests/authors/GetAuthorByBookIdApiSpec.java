@@ -21,12 +21,11 @@ public class GetAuthorByBookIdApiSpec extends AuthorsBaseTest {
     public void getAuthorsByBookIdShouldReturnListOfAuthors() {
         Response response = authorsClient.getAuthorsByBookId(1); // bookId = 1
 
-        // General response validations
         validateStatusCodeIsExpected(response, 200);
         validateHeadersContentTypeIsExpected(response, "application/json");
         validateListIsNotEmpty(response);
 
-        /* FakeAPI return dynamics list content, but for book ID 1 the author with ID 1
+        /* fakeRestAPI return dynamics list content, but author with ID 1
            is stable enough to validate as a known reference record. */
         AuthorResponseDto expectedAuthorDto = buildExpectedAuthorResponseDto();
         AuthorResponseDto actualAuthorDto = getAuthorByIdFromAuthorsList(response, expectedAuthorDto.getId());

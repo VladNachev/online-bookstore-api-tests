@@ -26,12 +26,10 @@ public class PutBooksApiTest extends BooksBaseTest {
 
         Response response = booksClient.updateBook(requestDto, BOOK_ID);
 
-        // General response validations
         validateStatusCodeIsExpected(response, 200);
         validateHeadersContentTypeIsExpected(response, "application/json");
         validateBookSchema(response);
 
-        // Validate book details in response match the request
         BookResponseDto responseDto = response.as(BookResponseDto.class);
         validateCreatedBookMatchesRequestDetails(requestDto, responseDto);
     }
@@ -41,7 +39,7 @@ public class PutBooksApiTest extends BooksBaseTest {
             dataProviderClass = BookDataProviders.class,
             description = "Verify book update with valid edge case payloads"
     )
-    @Description("Verify that POST /Books accepts valid edge case payloads and returns the created book details.")
+    @Description("Verify that PUT /Books accepts valid edge case payloads with nullTitle, nullDescription, nullExcerpt, zeroPageCount.")
     public void updateBookWithValidEdgeCasePayloadShouldSucceed(BookRequestDto requestDto, String scenario) {
         Response response = booksClient.updateBook(requestDto, BOOK_ID);
 
@@ -58,7 +56,7 @@ public class PutBooksApiTest extends BooksBaseTest {
             dataProviderClass = BookDataProviders.class,
             description = "Verify that PUT /Books returns Bad Request for invalid payloads"
     )
-    @Description("Verify that POST /Books returns HTTP 400 Bad Request when invalid payloads are provided.")
+    @Description("Verify that POST /Books returns 400 Bad Request when invalid data types or invalid publish date format are provided.")
     public void updateBookWithInvalidPayloadShouldReturnBadRequest(String requestBody, String scenario) {
         Response response = booksClient.updateBook(requestBody, BOOK_ID);
 
@@ -67,6 +65,5 @@ public class PutBooksApiTest extends BooksBaseTest {
 
     /* Note: Additional test scenarios such as updating a non-existent book by providing invalid IDs are skipped.
        Reason for that: Ideally the API should return 404 Not Found for non-existent resources,
-       but the current implementation returns 200. I decided to skip those negative test scenarios for now
-       in order avoid false failures in the test suite. */
+       but the current implementation returns 200. I decided to skip those negative test cases in order avoid false failures */
 }

@@ -20,11 +20,8 @@ public class GetAuthorByIdApiTest extends AuthorsBaseTest {
     @Test(description = "Verify retrieval of an author by ID")
     @Description("Verify that GET /Authors/{id} returns HTTP 200 with the corect data")
     public void getAuthorByIdShouldReturnAuthorDetails() {
-        int authorId = 1;
+        Response response = authorsClient.getAuthorById(1); // authorId = 1
 
-        Response response = authorsClient.getAuthorById(authorId);
-
-        // General response validations
         validateStatusCodeIsExpected(response, 200);
         validateHeadersContentTypeIsExpected(response, "application/json");
 
@@ -39,7 +36,7 @@ public class GetAuthorByIdApiTest extends AuthorsBaseTest {
             dataProviderClass = AuthorDataProviders.class,
             description = "Verify retrieval of an author by invalid ID"
     )
-    @Description("Verify that GET /Authors/{id} returns HTTP 404 when an invalid author ID is provided")
+    @Description("Verify that GET /Authors/{id} returns HTTP 404 when an invalid author ID is provided (9999, 0, -1)")
     public void getAuthorByInvalidIdShouldReturnNotFound(int authorId, String scenarioDescription) {
         Response response = authorsClient.getAuthorById(authorId);
 
