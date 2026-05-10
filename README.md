@@ -127,7 +127,7 @@ To download it:
 5. Download the `allure-report` artifact.
 6. Extract the downloaded `.zip` file.
 7. Open the report through a local web server, for example:
-8. 
+
 ```bash
 cd allure-report
 python -m http.server 8080

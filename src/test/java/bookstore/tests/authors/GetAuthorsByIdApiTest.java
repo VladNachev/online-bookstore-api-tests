@@ -19,7 +19,7 @@ import static bookstore.utils.BaseResponseValidations.validateStatusCodeIsExpect
 public class GetAuthorsByIdApiTest extends AuthorsBaseTest {
 
     @Test(description = "Verify retrieval of an author by ID")
-    @Description("Verify that GET /Authors/{id} returns HTTP 200 with the corect data")
+    @Description("Verify that GET /Authors/{id} returns HTTP 200 with the correct data")
     public void getAuthorByIdShouldReturnAuthorDetails() {
         Response response = authorsClient.getAuthorById(1); // authorId = 1
 
