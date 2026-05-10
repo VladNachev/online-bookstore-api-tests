@@ -12,6 +12,7 @@ import bookstore.testdata.BookDataProviders;
 
 import static bookstore.testdata.BookTestDataFactory.buildBookRequestDto;
 import static bookstore.utils.BaseResponseValidations.*;
+import static bookstore.utils.BooksResponseValidations.validateBookSchema;
 import static bookstore.utils.BooksResponseValidations.validateCreatedBookMatchesRequestDetails;
 
 @Feature("PUT Books")

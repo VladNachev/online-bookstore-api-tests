@@ -14,7 +14,7 @@ import static bookstore.utils.BaseResponseValidations.*;
 
 @Feature("GET Authors By Book ID")
 @Tag("Authors")
-public class GetAuthorByBookIdApiSpec extends AuthorsBaseTest {
+public class GetAuthorsByBookIdApiSpec extends AuthorsBaseTest {
 
     @Test(description = "Verify retrieval of authors by book ID")
     @Description("Verify that GET /Authors/authors/books/{idBook} returns HTTP 200 with a non-empty list of authors for the requested book ID.")

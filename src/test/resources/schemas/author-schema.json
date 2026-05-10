@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "required": [
+    "id",
+    "idBook"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "idBook": {
+      "type": "integer"
+    },
+    "firstName": {
+      "type": ["string", "null"]
+    },
+    "lastName": {
+      "type": ["string", "null"]
+    }
+  }
+}

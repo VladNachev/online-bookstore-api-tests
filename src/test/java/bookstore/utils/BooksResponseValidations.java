@@ -11,6 +11,10 @@ import static org.testng.Assert.*;
 
 public class BooksResponseValidations extends BaseResponseValidations {
 
+    private static final String BOOK_SCHEMA_PATH = "schemas/book-schema.json";
+    private static final String BOOKS_LIST_SCHEMA_PATH = "schemas/books-list-schema.json";
+
+
     public static void validateCreatedBookMatchesRequestDetails(BookRequestDto requestDto, BookResponseDto responseDto) {
         SoftAssert softAssert = new SoftAssert();
 
@@ -43,6 +47,14 @@ public class BooksResponseValidations extends BaseResponseValidations {
         assertEquals(books.size(),
                 expectedCount,
                 String.format("Expected books count to be %d but got %d", expectedCount, books.size()));
+    }
+
+    public static void validateBookSchema(Response response) {
+        validateSchema(response, BOOK_SCHEMA_PATH);
+    }
+
+    public static void validateBooksListSchema(Response response) {
+        validateSchema(response, BOOKS_LIST_SCHEMA_PATH);
     }
 
 }

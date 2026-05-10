@@ -10,10 +10,11 @@ import org.testng.annotations.Test;
 import bookstore.testdata.BookDataProviders;
 
 import static bookstore.utils.BaseResponseValidations.*;
+import static bookstore.utils.BooksResponseValidations.validateBookSchema;
 
 @Feature("GET Book By ID")
 @Tag("Books")
-public class GetBookByIdApiTest extends BooksBaseTest {
+public class GetBooksByIdApiTest extends BooksBaseTest {
 
     @Test(description = "Verify retrieval of a book by ID")
     @Description("Verify that GET /Books/{id} returns HTTP 200 with the requested book ID and validate stable fields")
@@ -24,6 +25,7 @@ public class GetBookByIdApiTest extends BooksBaseTest {
 
         validateStatusCodeIsExpected(response, 200);
         validateHeadersContentTypeIsExpected(response, "application/json");
+        validateBookSchema(response);
 
         BookResponseDto actualDto = response.as(BookResponseDto.class);
 

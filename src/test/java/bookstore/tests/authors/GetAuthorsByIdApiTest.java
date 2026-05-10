@@ -10,12 +10,13 @@ import org.testng.annotations.Test;
 
 import static bookstore.testdata.AuthorTestDataFactory.buildExpectedAuthorResponseDto;
 import static bookstore.utils.AuthorsResponseValidations.validateAuthorMatchesExpectedDetails;
+import static bookstore.utils.AuthorsResponseValidations.validateAuthorSchema;
 import static bookstore.utils.BaseResponseValidations.validateHeadersContentTypeIsExpected;
 import static bookstore.utils.BaseResponseValidations.validateStatusCodeIsExpected;
 
-@Feature("GET Author By ID")
+@Feature("GET Authors By ID")
 @Tag("Authors")
-public class GetAuthorByIdApiTest extends AuthorsBaseTest {
+public class GetAuthorsByIdApiTest extends AuthorsBaseTest {
 
     @Test(description = "Verify retrieval of an author by ID")
     @Description("Verify that GET /Authors/{id} returns HTTP 200 with the corect data")
@@ -24,6 +25,7 @@ public class GetAuthorByIdApiTest extends AuthorsBaseTest {
 
         validateStatusCodeIsExpected(response, 200);
         validateHeadersContentTypeIsExpected(response, "application/json");
+        validateAuthorSchema(response);
 
         // Validate Author details in response match the expected details for the author with ID 1.
         AuthorResponseDto expectedAuthorDto = buildExpectedAuthorResponseDto();

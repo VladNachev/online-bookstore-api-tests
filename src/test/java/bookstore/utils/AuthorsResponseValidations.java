@@ -9,6 +9,10 @@ import java.util.List;
 
 public class AuthorsResponseValidations extends BaseResponseValidations {
 
+    private static final String AUTHOR_SCHEMA_PATH = "schemas/author-schema.json";
+    private static final String AUTHORS_LIST_SCHEMA_PATH = "schemas/authors-list-schema.json";
+
+
     public static void validateCreatedAuthorMatchesRequestDetails(AuthorRequestDto requestDto, AuthorResponseDto responseDto) {
         SoftAssert softAssert = new SoftAssert();
 
@@ -57,5 +61,13 @@ public class AuthorsResponseValidations extends BaseResponseValidations {
                 "Last name does not match");
 
         softAssert.assertAll();
+    }
+
+    public static void validateAuthorSchema(Response response) {
+        validateSchema(response, AUTHOR_SCHEMA_PATH);
+    }
+
+    public static void validateAuthorsListSchema(Response response) {
+        validateSchema(response, AUTHORS_LIST_SCHEMA_PATH);
     }
 }

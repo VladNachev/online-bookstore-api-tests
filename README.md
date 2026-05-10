@@ -9,14 +9,14 @@ API automation testing assessment project for the public [FakeRestAPI Bookstore 
 The framework validates the `Books` and `Authors` API resources using Java, TestNG, RestAssured, JSON Schema validation, and Allure reporting. It also uses Apache Maven as the build tool and includes Maven Wrapper support to allow the framework to be executed without requiring a locally installed Maven version.
 
 ## Tech Stack
-- Java 17 +
+- Java
 - Maven
 - TestNG
 - RestAssured
 - Allure Report
 - JSON Schema Validator
 - GitHub Actions
-x
+
 ## Covered API Areas
 
 ### Books

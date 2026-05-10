@@ -10,7 +10,7 @@ import static bookstore.utils.BaseResponseValidations.validateStatusCodeIsExpect
 
 @Feature("DELETE Authors")
 @Tag("Authors")
-public class DeleteAuthorApiTest extends AuthorsBaseTest {
+public class DeleteAuthorsApiTest extends AuthorsBaseTest {
 
     @Test(description = "Verify successful author deletion")
     @Description("Verify that DELETE /Authors/{id} successfully deletes an existing author and returns HTTP 200")

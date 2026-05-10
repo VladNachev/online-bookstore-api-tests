@@ -11,13 +11,14 @@ import org.testng.annotations.Test;
 
 import static bookstore.testdata.AuthorInvalidPayloads.invalidDataTypesPayload;
 import static bookstore.testdata.AuthorTestDataFactory.buildAuthorRequestDto;
+import static bookstore.utils.AuthorsResponseValidations.validateAuthorSchema;
 import static bookstore.utils.AuthorsResponseValidations.validateCreatedAuthorMatchesRequestDetails;
 import static bookstore.utils.BaseResponseValidations.validateHeadersContentTypeIsExpected;
 import static bookstore.utils.BaseResponseValidations.validateStatusCodeIsExpected;
 
-@Feature("POST Author")
+@Feature("POST Authors")
 @Tag("Authors")
-public class PostAuthorApiTest extends AuthorsBaseTest {
+public class PostAuthorsApiTest extends AuthorsBaseTest {
 
     @Test(description = "Verify successful author creation")
     @Description("Verify that POST /Authors successfully creates a new author and returns HTTP 200")
@@ -27,6 +28,7 @@ public class PostAuthorApiTest extends AuthorsBaseTest {
 
         validateStatusCodeIsExpected(response, 200);
         validateHeadersContentTypeIsExpected(response, "application/json");
+        validateAuthorSchema(response);
 
         AuthorResponseDto responseDto = response.as(AuthorResponseDto.class);
         validateCreatedAuthorMatchesRequestDetails(requestDto, responseDto);
@@ -43,6 +45,7 @@ public class PostAuthorApiTest extends AuthorsBaseTest {
 
         validateStatusCodeIsExpected(response, 200);
         validateHeadersContentTypeIsExpected(response, "application/json");
+        validateAuthorSchema(response);
 
         AuthorResponseDto responseDto = response.as(AuthorResponseDto.class);
         validateCreatedAuthorMatchesRequestDetails(requestDto, responseDto);

@@ -4,7 +4,7 @@
     <test name="Books API Tests">
         <classes>
             <class name="bookstore.tests.books.GetBooksApiTest"/>
-            <class name="bookstore.tests.books.GetBookByIdApiTest"/>
+            <class name="bookstore.tests.books.GetBooksByIdApiTest"/>
             <class name="bookstore.tests.books.PostBooksApiTest"/>
             <class name="bookstore.tests.books.PutBooksApiTest"/>
             <class name="bookstore.tests.books.DeleteBooksApiTest"/>
@@ -13,11 +13,11 @@
     <test name="Authors API Tests">
         <classes>
             <class name="bookstore.tests.authors.GetAuthorsApiTest"/>
-            <class name="bookstore.tests.authors.GetAuthorByIdApiTest"/>
-            <class name="bookstore.tests.authors.GetAuthorByBookIdApiSpec"/>
-            <class name="bookstore.tests.authors.PostAuthorApiTest"/>
-            <class name="bookstore.tests.authors.PutAuthorApiTest"/>
-            <class name="bookstore.tests.authors.DeleteAuthorApiTest"/>
+            <class name="bookstore.tests.authors.GetAuthorsByIdApiTest"/>
+            <class name="bookstore.tests.authors.GetAuthorsByBookIdApiSpec"/>
+            <class name="bookstore.tests.authors.PostAuthorsApiTest"/>
+            <class name="bookstore.tests.authors.PutAuthorsApiTest"/>
+            <class name="bookstore.tests.authors.DeleteAuthorsApiTest"/>
         </classes>
     </test>
 </suite>

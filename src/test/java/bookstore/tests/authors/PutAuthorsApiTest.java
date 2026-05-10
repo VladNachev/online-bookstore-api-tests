@@ -12,13 +12,14 @@ import org.testng.annotations.Test;
 
 import static bookstore.testdata.AuthorTestDataFactory.buildAuthorRequestDto;
 import static bookstore.testdata.AuthorInvalidPayloads.invalidDataTypesPayload;
+import static bookstore.utils.AuthorsResponseValidations.validateAuthorSchema;
 import static bookstore.utils.AuthorsResponseValidations.validateCreatedAuthorMatchesRequestDetails;
 import static bookstore.utils.BaseResponseValidations.validateHeadersContentTypeIsExpected;
 import static bookstore.utils.BaseResponseValidations.validateStatusCodeIsExpected;
 
-@Feature("PUT Author")
+@Feature("PUT Authors")
 @Tag("Authors")
-public class PutAuthorApiTest extends AuthorsBaseTest {
+public class PutAuthorsApiTest extends AuthorsBaseTest {
     private static final int AUTHOR_ID = 1;
 
     @Test(description = "Verify successful author update")
@@ -30,6 +31,7 @@ public class PutAuthorApiTest extends AuthorsBaseTest {
 
         validateStatusCodeIsExpected(response, 200);
         validateHeadersContentTypeIsExpected(response, "application/json");
+        validateAuthorSchema(response);
 
         AuthorResponseDto responseDto = response.as(AuthorResponseDto.class);
         validateCreatedAuthorMatchesRequestDetails(requestDto, responseDto);
@@ -46,6 +48,7 @@ public class PutAuthorApiTest extends AuthorsBaseTest {
 
         validateStatusCodeIsExpected(response, 200);
         validateHeadersContentTypeIsExpected(response, "application/json");
+        validateAuthorSchema(response);
 
         AuthorResponseDto responseDto = response.as(AuthorResponseDto.class);
         validateCreatedAuthorMatchesRequestDetails(requestDto, responseDto);

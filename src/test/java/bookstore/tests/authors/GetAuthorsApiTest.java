@@ -28,6 +28,7 @@ public class GetAuthorsApiTest extends AuthorsBaseTest {
     public void getAuthorsShouldReturnListOfAuthors() {
         validateStatusCodeIsExpected(response, 200);
         validateHeadersContentTypeIsExpected(response, "application/json");
+        validateAuthorsListSchema(response);
         validateListIsNotEmpty(response);
     }
 

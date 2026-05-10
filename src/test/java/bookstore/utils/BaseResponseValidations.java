@@ -47,12 +47,8 @@ public class BaseResponseValidations {
                 String.format("%s does not match", fieldName));
     }
 
-    public static void validateBooksListSchema(Response response) {
+    public static void validateSchema(Response response, String schemaPath) {
         response.then()
-                .body(matchesJsonSchemaInClasspath("schemas/books-list-schema.json"));
-    }
-    public static void validateBookSchema(Response response) {
-        response.then()
-                .body(matchesJsonSchemaInClasspath("schemas/book-schema.json"));
+                .body(matchesJsonSchemaInClasspath(schemaPath));
     }
 }
