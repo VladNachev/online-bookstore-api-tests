@@ -4,7 +4,91 @@
 
 # Online Bookstore API Test Automation Framework
 
-!!! Project still under constructions !!!
+API automation testing assessment project for the public [FakeRestAPI Bookstore API](https://fakerestapi.azurewebsites.net/index.html).
+
+The framework validates the `Books` and `Authors` API resources using Java, TestNG, RestAssured, JSON Schema validation, and Allure reporting. It also uses Apache Maven as the build tool and includes Maven Wrapper support to allow the framework to be executed without requiring a locally installed Maven version.
+
+## Tech Stack
+- Java 17 +
+- Maven
+- TestNG
+- RestAssured
+- Allure Report
+- JSON Schema Validator
+- GitHub Actions
+x
+## Covered API Areas
+
+### Books
+
+- `GET /api/v1/Books`
+- `GET /api/v1/Books/{id}`
+- `POST /api/v1/Books`
+- `PUT /api/v1/Books/{id}`
+- `DELETE /api/v1/Books/{id}`
+
+### Authors
+
+- `GET /api/v1/Authors`
+- `GET /api/v1/Authors/{id}`
+- `GET /api/v1/Authors/authors/books/{idBook}`
+- `POST /api/v1/Authors`
+- `PUT /api/v1/Authors/{id}`
+- `DELETE /api/v1/Authors/{id}`
+
+## Project Structure
+
+```text
+src/test/java/bookstore
+├── clients      # API client classes built on top of RestAssured
+├── config       # Base URL and endpoint constants
+├── dto          # Request and response DTOs
+├── testdata     # Test data factories, invalid payloads, and DataProviders
+├── tests        # TestNG test classes grouped by resource
+└── utils        # Reusable response validation helpers
+
+src/test/resources
+├── schemas      # JSON schemas used for response validation
+└── testng.xml   # TestNG suite configuration
+```
+
+## Prerequisites
+Before running the tests locally, make sure you have:
+
+- Java 17+ installed
+- Maven available, or use the included Maven Wrapper
+- Internet access, because the tests run against the public FakeRestAPI service
+
+## Setup, configure and run the framework
+### Clone repository
+```bash
+git clone https://github.com/VladNachev/selenium-pytest-project.git
+```
+You can import the project into your preferred IDE (like Intellij for examples) as a Maven project and run the tests directly from the TestNG test classes, or run the tests from the command line using Maven or Maven Wrapper.
+
+## How to Run Tests Locally
+I recommend using the Maven Wrapper in order to avoid any Maven version incompatibilities issues. 
+
+From the project root, run (if you already imported the project into your IDE, you can use your integrated IDE's terminal as well:
+```bash
+./mvnw clean test
+```
+
+### Generate Allure Report Locally
+After running the tests, generate and open the Allure report:
+```bash
+mvn allure:serve
+```
+Or even better, use the Maven Wrapper:
+```bash
+./mvnw allure:serve
+```
+The Allure Dashboard will automatically open in your default web browser, allowing you to explore the test results, including passed/failed tests, test steps, etc. 
+
+The generated report is located at:
+```bast
+target/site/allure-maven-plugin
+```
 
 ## CI and Allure Reports
 
@@ -19,7 +103,7 @@ The CI workflow performs the following steps:
 - Uploads the Allure report as a downloadable GitHub Actions artifact
 - Publishes the latest Allure report to GitHub Pages
 
-### GitHub Pages Report
+## GitHub Pages Report
 
 The latest published Allure report can be viewed here:
 
@@ -27,7 +111,7 @@ The latest published Allure report can be viewed here:
 
 This report is updated after every successful push workflow run on the `master` branch.
 
-### Downloading the Allure Report Artifact
+## Downloading the Allure Report Artifact
 
 Each workflow run also stores the generated Allure report as a downloadable artifact.
 
@@ -43,3 +127,37 @@ To download it:
 ```bash
 cd allure-report
 python -m http.server 8080
+```
+
+And then open `http://localhost:8080` in your web browser. The browser will automatically load the Allure report index.html from that folder.
+
+### Notes About FakeRestAPI Behavior
+
+FakeRestAPI is a public demo API. Some responses may contain dynamic or non-persistent data.
+
+Because of that, the tests avoid relying on unstable response content where appropriate. For example:
+
+- existing resources are validated by status code, schema, ID, and required/populated fields
+- POST and PUT responses are validated against the request payload when the API echoes submitted data
+- some negative scenarios are documented when the API returns behavior that differs from typical REST expectations
+
+This keeps the test suite stable while still validating meaningful API behavior.
+
+### Test Design Highlights
+
+The framework uses:
+
+- client classes to isolate API request logic
+- DTOs for typed request and response bodies
+- reusable validation helpers
+- TestNG DataProviders for edge and negative scenarios
+- JSON schemas for response contract validation
+- Allure annotations for readable test reports
+- GitHub Actions for continuous test execution
+
+### Run a Specific Test Suite
+The Maven Surefire plugin is configured to use:
+``` bash
+src/test/resources/testng.xml
+```
+To adjust which tests are executed, update the TestNG suite file.
