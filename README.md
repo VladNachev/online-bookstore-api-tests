@@ -11,6 +11,7 @@ The framework validates the `Books` and `Authors` API resources using Java, Test
 ## Tech Stack
 - Java
 - Maven
+- Maven Wrapper
 - TestNG
 - RestAssured
 - Allure Report
@@ -69,23 +70,42 @@ You can import the project into your preferred IDE (like Intellij for examples) 
 ## How to Run Tests Locally
 I recommend using the Maven Wrapper in order to avoid any Maven version incompatibilities issues. 
 
-From the project root, run (if you already imported the project into your IDE, you can use your integrated IDE's terminal as well:
+From the project root, depending on your terminal and OS, run the following commands:
+- For Windows PowerShell:
+
+```powershell
+.\mvnw.cmd clean test
+```
+
+- For Windows Command Prompt:
+```cmd
+mvnw.cmd clean test
+```
+
+- For Git Bash terminal or Unix-based terminals (Linux, macOS):
 ```bash
 ./mvnw clean test
 ```
 
 ### Generate Allure Report Locally
-After running the tests, generate and open the Allure report:
 
-```bash
-mvn allure:serve
+After running the tests, generate and open the Allure report with the command that matches your terminal and operating system:
+
+- For Windows PowerShell:
+```powershell
+.\mvnw.cmd allure:serve
 ```
-Or even better, use the Maven Wrapper:
 
+- For Windows Command Prompt:
+```cmd
+mvnw.cmd allure:serve
+```
+- For Git Bash terminal or Unix-based terminals (Linux, macOS):
 ```bash
 ./mvnw allure:serve
 ```
-The Allure Dashboard will automatically open in your default web browser, allowing you to explore the test results, including passed/failed tests, test steps, etc. 
+
+The allure:serve command generates the report, starts a temporary local server, and opens the report in your default browser.
 
 The generated report is located at:
 
