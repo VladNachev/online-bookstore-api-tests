@@ -39,7 +39,7 @@ public class GetAuthorsByIdApiTest extends AuthorsBaseTest {
             description = "Verify retrieval of an author by invalid ID"
     )
     @Description("Verify that GET /Authors/{id} returns HTTP 404 when an invalid author ID is provided (9999, 0, -1)")
-    public void getAuthorByInvalidIdShouldReturnNotFound(int authorId, String scenarioDescription) {
+    public void getAuthorByInvalidIdShouldReturnNotFound(int authorId, String scenario) {
         Response response = authorsClient.getAuthorById(authorId);
 
         validateStatusCodeIsExpected(response, 404);

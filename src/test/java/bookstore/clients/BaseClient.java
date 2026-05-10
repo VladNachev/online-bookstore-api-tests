@@ -1,5 +1,6 @@
 package bookstore.clients;
 
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.RestAssured;
@@ -14,6 +15,7 @@ public abstract class BaseClient {
     protected RequestSpecification getRequestSpecification() {
         return new RequestSpecBuilder()
                 .setBaseUri(BASE_URL)
+                .addFilter(new AllureRestAssured())
                 .log(LogDetail.ALL)
                 .build();
     }
