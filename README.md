@@ -4,7 +4,7 @@
 
 # Online Bookstore API Test Automation Framework
 
-API automation testing assessment project for the public [FakeRestAPI Bookstore API](https://fakerestapi.azurewebsites.net/index.html).
+API automation for the public [FakeRestAPI Bookstore API](https://fakerestapi.azurewebsites.net/index.html).
 
 The framework validates the `Books` and `Authors` API resources using Java, TestNG, RestAssured, JSON Schema validation, and Allure reporting. It also uses Apache Maven as the build tool and includes Maven Wrapper support to allow the framework to be executed without requiring a locally installed Maven version.
 
@@ -109,9 +109,51 @@ The allure:serve command generates the report, starts a temporary local server, 
 
 The generated report is located at:
 
-```bast
+```bash
 target/site/allure-maven-plugin
 ```
+
+## Running Tests With Docker
+
+This project includes Docker support, so the test suite can be executed inside a container.
+
+### Build the Docker Image
+
+From the project root, run:
+
+```bash
+docker build -t bookstore-api-tests .
+```
+
+### Run Tests Inside the Container
+```bash 
+docker run --rm bookstore-api-tests
+```
+
+### Keep Test Results on the Host Machine when using Docker
+By default, the container is removed after the test run. To keep the generated target folder on your machine, mount it as a volume.
+
+- Windows PowerShell
+```powershell
+docker run --rm -v ${PWD}/target:/app/target bookstore-api-tests
+```
+
+- Windows Command Prompt
+```cmd
+docker run --rm -v "%cd%/target:/app/target" bookstore-api-tests
+```
+
+- Linux / macOS / Git Bash
+```bash
+docker run --rm -v "$(pwd)/target:/app/target" bookstore-api-tests
+```
+
+The test results and Allure result files will be available in:
+```text
+target/
+```
+
+Note: Docker support is optional. The tests can still be run directly with Maven Wrapper or through the GitHub Actions CI pipeline.
 
 ## CI and Allure Reports on GitHub Pages
 
