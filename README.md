@@ -17,6 +17,7 @@ The framework validates the `Books` and `Authors` API resources using Java, Test
 - Allure Report
 - JSON Schema Validator
 - GitHub Actions
+- Docker for containerized test execution (optional)
 
 ## Covered API Areas
 
